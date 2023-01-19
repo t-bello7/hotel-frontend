@@ -21,6 +21,7 @@ function App() {
               <Routes>
                 <Route index element={<Home />} />
                 <Route path="/hotels" element={<Hotels />} />
+                {/* <Route path="/hotels/:hotel_id" element={<Hotels />} /> */}
                 <Route path="booking" element={<Booking />} />
               </Routes>
             </div>
