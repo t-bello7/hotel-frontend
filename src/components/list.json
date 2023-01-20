@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "user_id": 5,
+        "name": "Metropolitan",
+        "image": "https://media.radissonhotels.net/image/metropolitan-hotel-sofia-a-member-of-radisson-individuals/exteriorview/16256-145921-f72742573_3xl.jpg?impolicy=HomeHero&gravity=North",
+        "location": "Sofia",
+        "size": "large",
+        "email": "metropolitan.hotel@gmail.com"
+    },
+    {
+        "id": 2,
+        "user_id": 5,
+        "name": "Highcrest",
+        "image": "https://pix8.agoda.net/hotelImages/124/1246280/1246280_16061017110043391702.jpg?ca=6&ce=1&s=1024x768",
+        "location": "slemany",
+        "size": "Medium",
+        "email": "highcrest.hotel@gmail.com"
+    },
+    {
+        "id": 3,
+        "user_id": 5,
+        "name": "Blossom",
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/04/93/1e/blossom-hotel-houston.jpg?w=1200&h=-1&s=1",
+        "location": "Erbil",
+        "size": "large",
+        "email": "blossom.hotel@gmail.com"
+    },
+    {
+        "id": 4,
+        "user_id": 5,
+        "name": "Mazi",
+        "image": "https://res.cloudinary.com/sagacity/image/upload/c_crop,h_735,w_980,x_0,y_0/c_limit,dpr_auto,f_auto,fl_lossy,q_80,w_1080/322793_original_jtmg7h.png",
+        "location": "Slemay",
+        "size": "large",
+        "email": "mazi.hotel@gmail.com"
+    }
+]

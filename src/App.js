@@ -1,28 +1,34 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
+import { Provider } from 'react-redux';
 import Booking from './components/booking';
 import Home from './components/home';
 import Hotels from './components/hotels';
 import Navigation from './components/navigation';
+import './App.css';
+import store from './redux/configStore';
+import HotelShow from './components/hotelShow';
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <div className="app_holder">
-          <div>
-            <Navigation />
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className="app_holder">
+            <div>
+              <Navigation />
+            </div>
+            <div>
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path="/hotels" element={<Hotels />} />
+                <Route path="/hotels/:hotelName" element={<HotelShow />} />
+                <Route path="booking" element={<Booking />} />
+              </Routes>
+            </div>
           </div>
-          <div>
-            <Routes>
-              <Route index element={<Home />} />
-              <Route path="/hotels" element={<Hotels />} />
-              <Route path="booking" element={<Booking />} />
-            </Routes>
-          </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
     </>
   );
 }
