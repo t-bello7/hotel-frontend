@@ -7,6 +7,7 @@ import Hotels from './components/hotels';
 import Navigation from './components/navigation';
 import './App.css';
 import store from './redux/configStore';
+import HotelShow from './components/hotelShow';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
               <Routes>
                 <Route index element={<Home />} />
                 <Route path="/hotels" element={<Hotels />} />
-                {/* <Route path="/hotels/:hotel_id" element={<Hotels />} /> */}
+                <Route path="/hotels/:hotelName" element={<HotelShow />} />
                 <Route path="booking" element={<Booking />} />
               </Routes>
             </div>

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { fetchHotels } from '../redux/hotels';

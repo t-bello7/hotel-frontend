@@ -5,7 +5,7 @@ import "./hotelCard.css";
 
 export default function HotelCard(props) {
   const { hotel } = props;
-  const link = `/hotels/${hotel.id}/details`;
+  const link = `/hotels/${hotel.name}`;
   return (
     <NavLink to={link}>
       <div className="card">

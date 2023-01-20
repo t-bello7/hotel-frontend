@@ -20,11 +20,11 @@
     {
         "id": 3,
         "user_id": 5,
-        "name": "Rexos",
+        "name": "Blossom",
         "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/04/93/1e/blossom-hotel-houston.jpg?w=1200&h=-1&s=1",
         "location": "Erbil",
         "size": "large",
-        "email": "rexos.hotel@gmail.com"
+        "email": "blossom.hotel@gmail.com"
     },
     {
         "id": 4,
