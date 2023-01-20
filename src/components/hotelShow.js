@@ -19,13 +19,8 @@ export default function HotelShow() {
   }, []);
 
   const { hotelName } = useParams();
-
   const hotel = hotels.find((h) => h.name === hotelName);
-
-  console.log(hotels, hotelRooms);
-
   const targetHotelRooms = hotelRooms.filter((room) => room.hotelId === hotel.id);
-
   return (
     <div className="hotel_show">
       <div className="hotel_content_panel">

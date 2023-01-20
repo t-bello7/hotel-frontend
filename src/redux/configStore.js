@@ -7,6 +7,6 @@ const rootReducer = combineReducers({ hotels: getHotels, rooms: getRooms });
 const store = configureStore({ reducer: rootReducer }, applyMiddleware(thunk));
 
 store.subscribe(() => {
-  console.log('Store changed ! ', store.getState());
+  // console.log('Store changed ! ', store.getState());
 });
 export default store;
