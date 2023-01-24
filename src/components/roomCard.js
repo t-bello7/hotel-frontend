@@ -43,9 +43,11 @@ export default function RoomCard(props) {
           <button type="button" className={visibile} onClick={reserving} disabled={!room.number}>Book Now</button>
           <div className={popupClass}>
             <div className="reserve_box">
-              <button type="button" onClick={close} className="close_btn">
-                <i className="fa fa-times" />
-              </button>
+              <div className="popupheader">
+                <button type="button" onClick={close} className="close_btn">
+                  <i className="fa fa-times" />
+                </button>
+              </div>
               <h1>
                 <i className="fa fa-building green_color" />
                 &nbsp;&nbsp;
