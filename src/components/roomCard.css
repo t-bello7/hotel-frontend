@@ -35,6 +35,7 @@
   color: white;
   width: fit-content;
   padding: 5px 10px;
+  border: 0;
   border-radius: 5px;
   transition: all 0.2s ease;
 }
@@ -58,4 +59,62 @@
 .disable {
   background-color: #a8a8a8 !important;
   cursor: default !important;
+}
+
+.popup_window {
+  background-color: rgba(88, 88, 88, 0.541);
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  display: none;
+  backdrop-filter: blur(5px);
+}
+
+.display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reserve_box {
+  background-color: white;
+  box-shadow: 0 0 5px gray;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.close_btn {
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  padding: 0;
+  font-size: large;
+  margin-bottom: 20px;
+}
+
+.reserve_form {
+  margin-top: 20px;
+}
+
+.form_feild {
+  padding: 5px;
+  font-size: 18px;
+  border: 0.5px solid gray;
+  border-radius: 5px;
+}
+
+.small_feild {
+  width: 20%;
+}
+
+.form_feild:focus {
+  border: 0.5px solid rgba(192, 192, 192, 0.397);
+  outline: 4px solid #649e2249;
+}
+
+.fixed_info {
+  color: rgb(128, 128, 128);
 }
