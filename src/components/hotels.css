@@ -1,0 +1,30 @@
+.add_new_hotel_box {
+  background-color: white;
+  width: 350px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgb(117, 117, 117);
+}
+
+.add_new_hotel_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: green;
+}
+
+.add_new_hotel_form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.hotels_holder_header {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 0.5px solid rgb(196, 196, 196);
+  display: flex;
+  justify-content: space-around;
+}
