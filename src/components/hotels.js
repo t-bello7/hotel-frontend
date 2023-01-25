@@ -51,11 +51,11 @@ export default function Hotels() {
               </button>
             </div>
             <form className="add_new_hotel_form" method="get">
-              <input name="name" className="form_feild" placeholder="Hotel Name" required />
-              <input name="image" className="form_feild" placeholder="Hotel Image" required />
-              <input name="location" className="form_feild" placeholder="Location" required />
-              <input name="size" className="form_feild" placeholder="Hotel Size" required />
-              <input name="email" className="form_feild" placeholder="Email" required />
+              <input type="text" name="name" className="form_feild" placeholder="Hotel Name" required />
+              <input type="text" name="image" className="form_feild" placeholder="Hotel Image" required />
+              <input type="text" name="location" className="form_feild" placeholder="Location" required />
+              <input type="text" name="size" className="form_feild" placeholder="Hotel Size" required />
+              <input type="email" name="email" className="form_feild" placeholder="Email" required />
               <input type="number" name="user_id" value={5} hidden readOnly />
               <button type="submit" className="reserve_btn text_1">Add</button>
             </form>
