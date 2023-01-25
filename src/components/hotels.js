@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchHotels } from '../redux/hotels';
 import HotelCard from './hotelCard';
 import data from './list.json';
@@ -25,6 +25,7 @@ export default function Hotels() {
       {/* ------------ Header ------------ */}
       <div className="hotels_holder_header">
         <button type="button" className="reserve_btn text_1" onClick={display}>Add Hotel</button>
+        <h1>Hotel List</h1>
         <input type="text" className="form_feild" placeholder="Search..." onChange={(event) => { setSearch(event.target.value); }} />
       </div>
       {/* ------------------------- */}
