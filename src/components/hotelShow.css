@@ -41,11 +41,21 @@
   width: 100%;
 }
 
+.hotel_show_holder_header {
+  border-bottom: 0.5px solid rgb(172, 172, 172);
+  padding: 20px;
+  margin: 10px 0;
+}
+
 .info_holder {
   padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.bg_purple {
+  background-color: rgb(135, 0, 177);
 }
 
 @media screen and (min-width: 900px) {
