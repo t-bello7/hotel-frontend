@@ -8,6 +8,8 @@ import Navigation from './components/navigation';
 import './App.css';
 import store from './redux/configStore';
 import HotelShow from './components/hotelShow';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
             <div>
               <Routes>
                 <Route index element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="/hotels" element={<Hotels />} />
                 <Route path="/hotels/:hotelName" element={<HotelShow />} />
                 <Route path="booking" element={<Booking />} />
