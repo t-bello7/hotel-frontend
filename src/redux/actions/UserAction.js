@@ -39,17 +39,17 @@ const register = (formData) => async (dispatch) => {
     dispatch({ type: types.USER_REGISTER_REQUEST });
 
     const config = {
-        Headers: {
-            'Content-Type': 'application/json',
-            accept: 'application/json',
-          },
+      Headers: {
+        'Content-Type': 'application/json',
+        accept: 'application/json',
+      },
     };
 
     const { data } = await axios.post(
-        REGISTER_URL,
-        formData,
-        config,
-      );
+      REGISTER_URL,
+      formData,
+      config,
+    );
 
     dispatch({
       type: types.USER_REGISTER_SUCCESS,
