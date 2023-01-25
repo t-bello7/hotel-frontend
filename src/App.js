@@ -5,9 +5,9 @@ import Booking from './components/booking';
 import Home from './components/home';
 import Hotels from './components/hotels';
 import Navigation from './components/navigation';
-import './App.css';
 import store from './redux/configStore';
 import HotelShow from './components/hotelShow';
+import './App.css';
 
 function App() {
   return (
