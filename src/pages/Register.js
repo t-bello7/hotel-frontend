@@ -49,14 +49,14 @@ const Register = () => {
   const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append('user[name]', fullName);
-    formData.append('user[email]', email);
-    formData.append('user[password]', password);
-    formData.append('user[date_of_birth]', age);
-    setSubmited(true);
+    var data={
+      name: fullName,
+      email: email,
+      password: password,
+      age: age
+    }
     if (valid) {
-      dispatch(register(formData));
+      dispatch(register(data));
       toast.success('Register successful');
     } else {
       toast.error('Please fill all the fields');

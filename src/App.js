@@ -10,6 +10,7 @@ import HotelShow from './components/hotelShow';
 import './App.css';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import User from './pages/User';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/users" element={<User />} />
                 <Route path="/hotels" element={<Hotels />} />
                 <Route path="/hotels/:hotelName" element={<HotelShow />} />
                 <Route path="booking" element={<Booking />} />
