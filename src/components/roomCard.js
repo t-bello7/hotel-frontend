@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './roomCard.css';
+import '../assets/styles/roomCard.css';
 import { useParams } from 'react-router-dom';
 
 export default function RoomCard(props) {

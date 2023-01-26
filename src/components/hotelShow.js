@@ -6,7 +6,7 @@ import { fetchRooms } from '../redux/rooms';
 import { fetchHotels } from '../redux/hotels';
 import rooms from './roomList.json';
 import data from './list.json';
-import './hotelShow.css';
+import '../assets/styles/hotelShow.css';
 
 export default function HotelShow() {
   const hotelRooms = useSelector((state) => state.rooms);

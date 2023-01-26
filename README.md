@@ -255,9 +255,8 @@ If you like this project...
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-> Give credit to everyone who inspired your codebase.
-
-I would like to thank...
+I would like to thank Marten Bjork for the image
+https://unsplash.com/photos/n_IKQDCyrG0?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

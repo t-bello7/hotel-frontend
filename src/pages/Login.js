@@ -9,6 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { login } from '../redux/actions/UserAction';
 import { validateEmail, validatePassword } from '../components/validation';
 import InlineError from '../components/InlineError';
+import HomeLayout from '../layouts/homeLayout';
+import background from '../assets/images/hotel-background.jpg'
+import '../assets/styles/card.css';
 
 const Login = () => {
   const emailRef = useRef();
@@ -58,9 +61,10 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <HomeLayout background={background}>
+    <div className='holder'>
       {loading && <Loader />}
-      <form onSubmit={handleSubmit} className="login_form">
+      <form onSubmit={handleSubmit} className="form_holder">
         <div>
           <input id="email" type="email" className="form_feild" placeholder="Email" ref={emailRef} value={email} onChange={(e) => setEmail(e.target.value)} />
           {emailError && <InlineError error={emailError} />}
@@ -80,6 +84,7 @@ const Login = () => {
       </form>
       <ToastContainer />
     </div>
+    </HomeLayout>
   );
 };
 
