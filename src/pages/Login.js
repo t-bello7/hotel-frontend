@@ -60,58 +60,23 @@ const Login = () => {
   return (
     <div>
       {loading && <Loader />}
-      <form
-        onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         <div>
-          <label
-            htmlFor="email"
-          >
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Email"
-            ref={emailRef}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <label  htmlFor="email">Email</label>
+          <input id="email" type="email" placeholder="Email" ref={emailRef} value={email} onChange={(e) => setEmail(e.target.value)} />
           {emailError && <InlineError error={emailError} />}
         </div>
         <div className="mb-6">
-          <label
-            htmlFor="password"
-          >
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            placeholder="**********"
-            ref={passwordRef}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <label htmlFor="password">Password</label>
+          <input id="password" type="password" placeholder="**********" ref={passwordRef} value={password} onChange={(e) => setPassword(e.target.value)} />
           {passwordError && password && <InlineError error={passwordError} />}
         </div>
         <div>
-          <button
-            type="submit"
-            onClick={error && notify()}
-          >
-            Sign In
-          </button>
+          <button type="submit" onClick={error && notify()}>Sign In</button>
         </div>
         <div>
-          <p>
-            Don&#39;t have an account yet?
-          </p>
-          <NavLink
-            to="/register"
-          >
-            Sign Up now
-          </NavLink>
+          <p>Don&#39;t have an account yet?</p>
+          <NavLink to="/register">Sign Up now</NavLink>
         </div>
       </form>
       <ToastContainer />
