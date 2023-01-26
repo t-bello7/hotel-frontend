@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import getHotels from './hotels';
 import userLoginReducer from './reducers/userLoginReducer';
 import userRegisterReducer from './reducers/userRegisterReducer';
+import usersListReducer from './reducers/usersListReducer';
 import getRooms from './rooms';
 
 const rootReducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  usersList: usersListReducer,
   hotels: getHotels,
   rooms: getRooms
 });
