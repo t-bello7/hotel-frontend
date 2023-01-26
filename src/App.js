@@ -8,7 +8,7 @@ import Navigation from './components/navigation';
 import store from './redux/configStore';
 import HotelShow from './components/hotelShow';
 import './App.css';
-import Login from './pages/Login';
+// import Login from './pages/Login';
 import Register from './pages/Register';
 import User from './pages/User';
 
@@ -24,7 +24,7 @@ function App() {
             <div>
               <Routes>
                 <Route index element={<Home />} />
-                <Route path="/login" element={<Login />} />
+                {/* <Route path="/login" element={<Login />} /> */}
                 <Route path="/register" element={<Register />} />
                 <Route path="/users" element={<User />} />
                 <Route path="/hotels" element={<Hotels />} />
