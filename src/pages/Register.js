@@ -114,115 +114,50 @@ const Register = () => {
     e.preventDefault();
   }
   return (
-    <div>
-      <ToastContainer />
-      {error && <div>{error}</div>}
-      {loading && <Loader />}
-      <form
-        onSubmit={handleSubmitt}
-      >
-
-        <div>
-          <label
-            htmlFor="username"
-          >
-            FullName
-          </label>
-          <input
-            id="username"
-            type="name"
-            placeholder="FullName"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="username"
-          >
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="date"
-          >
-            Date Of Birth
-          </label>
-          <input
-            type="text"
-            value={dateFormat(age)}
-            readOnly
-            onClick={() => setIsOpen(true)}
-          />
-          <DatePicker
-            value={age}
-            onChange={(age) => setAge(age)}
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
-            defaultValue={new Date(2022, 8, 8)}
-            maxDate={new Date(2023, 0, 10)}
-            headerFormat="DD MM dd"
-          />
-
-          {submited && ageError && <InlineError error={ageError} />}
-        </div>
-        <div>
-          <label
-            htmlFor="password"
-          >
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            placeholder="******************"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {submited && passwordError && <InlineError error={passwordError} />}
-        </div>
-        <div>
-          <label
-            htmlFor="password"
-          >
-            Confirm Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            placeholder="******************"
-            value={cpassword}
-            onChange={(e) => setCpassword(e.target.value)}
-          />
-        {submited && cpasswordError && <InlineError error={cpasswordError} />}
-        </div>
-        <div>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-          >
-            Sign up
-          </button>
-        </div>
-        <div>
-          <p>
-            Already have an account?
-          </p>
-          <NavLink
-            to="/login"
-          >
-            Login
-          </NavLink>
-        </div>
-      </form>
+    <div className="registration_holder">
+      <h1>REGISTER TO BOOK EASILY</h1>
+      <div className="registration_form_holder">
+        <ToastContainer />
+        {error && <div>{error}</div>}
+        {loading && <Loader />}
+        <form onSubmit={handleSubmitt} className="login_form">
+          <div>
+            <input id="username" type="name"  className="form_feild" placeholder="FullName" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+          </div>
+          <div>
+            <input id="email" type="email"  className="form_feild" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
+          <div>
+            <input type="text"  className="form_feild" value={dateFormat(age)} readOnly onClick={() => setIsOpen(true)} />
+            <DatePicker
+              value={age}
+              onChange={(age) => setAge(age)}
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+              defaultValue={new Date(2022, 8, 8)}
+              maxDate={new Date(2023, 0, 10)}
+              headerFormat="DD MM dd"
+            />
+            {submited && ageError && <InlineError error={ageError} />}
+          </div>
+          <div>
+            <input id="password" type="password"  className="form_feild" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            {submited && passwordError && <InlineError error={passwordError} />}
+          </div>
+          <div>
+            <input id="password" type="password"  className="form_feild" placeholder="Verify Password" value={cpassword} onChange={(e) => setCpassword(e.target.value)} />
+          {submited && cpasswordError && <InlineError error={cpasswordError} />}
+          </div>
+          <div>
+            <button type="submit" onClick={handleSubmit} className="btn" >Sign up</button>
+          </div>
+          <div>
+            <p> Already have an account? </p>
+            <br />
+            <NavLink to="/" className="btn blue_btn"> Login </NavLink>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
