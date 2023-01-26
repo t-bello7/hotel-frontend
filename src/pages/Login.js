@@ -60,23 +60,22 @@ const Login = () => {
   return (
     <div>
       {loading && <Loader />}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="login_form">
         <div>
-          <label  htmlFor="email">Email</label>
-          <input id="email" type="email" placeholder="Email" ref={emailRef} value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input id="email" type="email" className="form_feild" placeholder="Email" ref={emailRef} value={email} onChange={(e) => setEmail(e.target.value)} />
           {emailError && <InlineError error={emailError} />}
         </div>
         <div className="mb-6">
-          <label htmlFor="password">Password</label>
-          <input id="password" type="password" placeholder="**********" ref={passwordRef} value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input id="password" type="password" className="form_feild" placeholder="**********" ref={passwordRef} value={password} onChange={(e) => setPassword(e.target.value)} />
           {passwordError && password && <InlineError error={passwordError} />}
         </div>
         <div>
-          <button type="submit" onClick={error && notify()}>Sign In</button>
+          <button type="submit" onClick={error && notify()} className="btn green_btn">Sign In</button>
         </div>
         <div>
-          <p>Don&#39;t have an account yet?</p>
-          <NavLink to="/register">Sign Up now</NavLink>
+          <p className="white_color">Don&#39;t have an account yet?</p>
+          <br />
+          <NavLink to="/register" className="btn blue_btn">Register Now</NavLink>
         </div>
       </form>
       <ToastContainer />
