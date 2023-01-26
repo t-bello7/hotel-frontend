@@ -1,14 +1,13 @@
 .app_holder {
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-  }
-  
-  .rooms_panel {
-    margin-top: 50px;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    justify-items: center;
-  }
-  
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+.rooms_panel {
+  margin-top: 50px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  justify-items: center;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Button from './button';
+import Button from '../components/button';
 import "../assets/styles/home.css";
 import background from "../assets/images/home-hotel.jpg";
 import HomeLayout from '../layouts/homeLayout';

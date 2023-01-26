@@ -1,8 +1,7 @@
 const NotFound = () => (
-    <main style={{ padding: "1rem" }}>
-      he
-    </main>
-  );
-  
-  export default NotFound;
-  
+  <main style={{ padding: "1rem" }}>
+    Not Founds
+  </main>
+);
+
+export default NotFound;
