@@ -1,20 +1,20 @@
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchHotels } from '../redux/hotels';
-import HotelCard from './hotelCard';
-import data from './list.json';
+import { useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { fetchHotels } from '../redux/hotels';
+// import HotelCard from './hotelCard';
+// import data from './list.json';
 import '../assets/styles/hotels.css';
 
 export default function Hotels() {
-  const hotels = useSelector((state) => state.hotels);
+  // const hotels = useSelector((state) => state.hotels);
   const [popup, setPopup] = useState("popup_window");
-  const [search, setSearch] = useState("");
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchHotels(data));
-  }, []);
+  const [setSearch] = useState("");
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchHotels(data));
+  // }, []);
 
   const display = () => {
     setPopup("popup_window display");
@@ -31,7 +31,7 @@ export default function Hotels() {
       {/* ------------------------- */}
       {/* ------------ Hotel list ----------- */}
       <div className="hotel_holder">
-        {
+        {/* {
           hotels.filter((element) => {
             if (search === "") {
               return element;
@@ -40,7 +40,7 @@ export default function Hotels() {
               return element;
             }
           }).map((hotel) => <HotelCard key={hotel.id} hotel={hotel} />)
-        }
+        } */}
         {/* ----------------------------------- */}
         {/* ----------- Add new Hotel form Popup window  */}
         <div className={popup}>

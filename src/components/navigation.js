@@ -18,7 +18,8 @@ export default function Navigation() {
       <div className="nav_holder">
         <nav className="navbar">
           <NavLink className="nav_link" style={activeStyle} to="/hotels">Hotels</NavLink>
-          <NavLink className="nav_link" style={activeStyle} to="/booking">Bookings</NavLink>
+          <NavLink className="nav_link" style={activeStyle} to="/bookings">Bookings</NavLink>
+          <a className="nav_link" href="/">Logout</a>
         </nav>
       </div>
       <div className="text_center">

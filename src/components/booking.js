@@ -1,12 +1,12 @@
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import React, { useState } from 'react';
-import RoomCard from './roomCard';
+// import RoomCard from './roomCard';
 
 export default function Booking() {
-  const hotelRooms = useSelector((state) => state.rooms);
-  const [search, setSearch] = useState("");
+  // const hotelRooms = useSelector((state) => state.rooms);
+  const [setSearch] = useState("");
   const [popup, setPopup] = useState("popup_window");
 
   const display = () => {
@@ -21,7 +21,7 @@ export default function Booking() {
         <input type="text" className="form_feild" placeholder="Search..." onChange={(event) => { setSearch(event.target.value); }} />
       </div>
       <div className="rooms_panel">
-        {
+        {/* {
           hotelRooms.filter((element) => {
             if (search === "") {
               return element;
@@ -30,7 +30,7 @@ export default function Booking() {
               return element;
             }
           }).map((room) => <RoomCard key={room.id} room={room} />)
-        }
+        } */}
       </div>
 
       <div className={popup}>

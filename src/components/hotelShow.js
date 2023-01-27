@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import RoomCard from './roomCard';
-import { fetchRooms } from '../redux/rooms';
-import { fetchHotels } from '../redux/hotels';
-import rooms from './roomList.json';
-import data from './list.json';
+import React, { useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useParams } from 'react-router-dom';
+// import RoomCard from './roomCard';
+// import { fetchRooms } from '../redux/rooms';
+// import { fetchHotels } from '../redux/hotels';
+// import rooms from './roomList.json';
+// import data from './list.json';
 import '../assets/styles/hotelShow.css';
 
 export default function HotelShow() {
-  const hotelRooms = useSelector((state) => state.rooms);
-  const hotels = useSelector((state) => state.hotels);
+  // const hotelRooms = useSelector((state) => state.rooms);
+  // const hotels = useSelector((state) => state.hotels);
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchHotels(data));
-    dispatch(fetchRooms(rooms));
-  }, []);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchHotels(data));
+  //   dispatch(fetchRooms(rooms));
+  // }, []);
 
-  const { hotelName } = useParams();
-  const hotel = hotels.find((h) => h.name === hotelName);
-  const targetHotelRooms = hotelRooms.filter((room) => room.hotelId === hotel.id);
+  // const { hotelName } = useParams();
+  // const hotel = hotels.find((h) => h.name === hotelName);
+  // const targetHotelRooms = hotelRooms.filter((room) => room.hotelId === hotel.id);
   const [popup, setPopup] = useState("popup_window ");
   const display = () => {
     setPopup("popup_window display");
@@ -29,24 +29,24 @@ export default function HotelShow() {
     <div className="hotel_show">
       <div className="hotel_content_panel">
         <div className="image_holder">
-          <img src={hotel?.image} alt="hotel_image" className="banner_image" />
+          {/* <img src={hotel?.image} alt="hotel_image" className="banner_image" /> */}
         </div>
         <div className="hotel_show_holder_header">
           <button type="button" className="reserve_btn text_1" onClick={display}>Add New Room</button>
         </div>
         <div className="rooms_panel">
-          {
+          {/* {
             targetHotelRooms.map((room) => <RoomCard key={room.id} room={room} />)
-          }
+          } */}
         </div>
       </div>
       <div className="hotel_info_panel">
         <div className="info_holder">
-          <h1>{hotel?.name}</h1>
+          {/* <h1>{hotel?.name}</h1> */}
           <p>
             Size :
             &nbsp;&nbsp;
-            {hotel?.size}
+            {/* {hotel?.size} */}
           </p>
           <p>
             <i className="fa fa-phone green_color" aria-hidden="true" />
@@ -56,12 +56,12 @@ export default function HotelShow() {
           <p>
             <i className="fa fa-envelope green_color" aria-hidden="true" />
             &nbsp;&nbsp;
-            {hotel?.email}
+            {/* {hotel?.email} */}
           </p>
           <p>
             <i className="fa fa-map-marker green_color" aria-hidden="true" />
             &nbsp;&nbsp;
-            {hotel?.location}
+            {/* {hotel?.location} */}
           </p>
         </div>
       </div>
@@ -79,7 +79,7 @@ export default function HotelShow() {
             <input type="number" name="beds" className="form_feild" placeholder="Beds" min={0} required />
             <input type="number" name="number" className="form_feild" placeholder="Number" min={0} required />
             <input type="number" name="price" className="form_feild" placeholder="Price" min={0} required />
-            <input type="number" name="hotel_id" value={hotel.id} hidden readOnly />
+            {/* <input type="number" name="hotel_id" value={hotel.id} hidden readOnly /> */}
             <input type="number" name="user_id" value={5} hidden readOnly />
             <button type="submit" className="reserve_btn text_1">Add</button>
           </form>
