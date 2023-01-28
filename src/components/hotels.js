@@ -1,23 +1,42 @@
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 import { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { fetchHotels } from '../redux/hotels';
-// import HotelCard from './hotelCard';
-// import data from './list.json';
+import { ToastContainer, toast } from 'react-toastify';
+import { usePostHotelMutation, useGetHotelsQuery } from '../services/hotel';
+import Loader from './Loader';
+import HotelCard from './hotelCard';
 import '../assets/styles/hotels.css';
 
 export default function Hotels() {
-  // const hotels = useSelector((state) => state.hotels);
+  const { data: hotels, error: hotelError, isLoading: isLoadingHotels } = useGetHotelsQuery();
+  const [postHotel, { isLoading, error }] = usePostHotelMutation();
+  const [hotelData, setHotelData] = useState({
+    name: '',
+    location: '',
+    email: '',
+    phone_number: ''
+  });
   const [popup, setPopup] = useState("popup_window");
-  const [setSearch] = useState("");
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(fetchHotels(data));
-  // }, []);
-
+  const [search, setSearch] = useState("");
   const display = () => {
     setPopup("popup_window display");
+  };
+
+  const handleHotelFormChange = (event) => {
+    setHotelData({
+      ...hotelData,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    try {
+      postHotel(hotelData);
+      toast.success("Succefully added hotel");
+    } catch (err) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -31,8 +50,10 @@ export default function Hotels() {
       {/* ------------------------- */}
       {/* ------------ Hotel list ----------- */}
       <div className="hotel_holder">
-        {/* {
-          hotels.filter((element) => {
+        {hotelError && <div> Error Loading Hotels</div>}
+        {isLoadingHotels && <Loader />}
+        {
+          hotels && hotels.filter((element) => {
             if (search === "") {
               return element;
             }
@@ -40,7 +61,7 @@ export default function Hotels() {
               return element;
             }
           }).map((hotel) => <HotelCard key={hotel.id} hotel={hotel} />)
-        } */}
+        }
         {/* ----------------------------------- */}
         {/* ----------- Add new Hotel form Popup window  */}
         <div className={popup}>
@@ -51,16 +72,16 @@ export default function Hotels() {
                 <i className="fa fa-times white_color" />
               </button>
             </div>
-            <form className="add_new_hotel_form" method="get">
-              <input type="text" name="name" className="form_feild" placeholder="Hotel Name" required />
-              <input type="text" name="image" className="form_feild" placeholder="Hotel Image" required />
-              <input type="text" name="location" className="form_feild" placeholder="Location" required />
-              <input type="text" name="size" className="form_feild" placeholder="Hotel Size" required />
-              <input type="email" name="email" className="form_feild" placeholder="Email" required />
-              <input type="number" name="user_id" value={5} hidden readOnly />
+            {isLoading && <Loader />}
+            <form className="add_new_hotel_form" method="post" onSubmit={handleSubmit}>
+              <input type="text" name="name" className="form_feild" placeholder="Hotel Name" onChange={handleHotelFormChange} value={hotelData?.name} required />
+              <input type="text" name="location" className="form_feild" placeholder="Location" onChange={handleHotelFormChange} value={hotelData?.location} required />
+              <input type="email" name="email" className="form_feild" placeholder="Email" onChange={handleHotelFormChange} value={hotelData?.email} required />
+              <input type="text" name="phone_number" placeholder="Phone Number" onChange={handleHotelFormChange} value={hotelData?.phone_number} required />
               <button type="submit" className="reserve_btn text_1">Add</button>
             </form>
             {/* ------------------------------------- */}
+            <ToastContainer />
           </div>
         </div>
       </div>

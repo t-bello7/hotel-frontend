@@ -25,7 +25,7 @@ function App() {
           <Route element={<DashboardLayout />}>
             {/* <Route path="/users" element={<User />} /> */}
             <Route path="/hotels" element={<Hotels />} />
-            <Route path="/hotels/:hotelName" element={<HotelShow />} />
+            <Route path="/hotels/:hotelId" element={<HotelShow />} />
             <Route path="bookings" element={<Booking />} />
             <Route path="*" element={<NotFound />} />
           </Route>

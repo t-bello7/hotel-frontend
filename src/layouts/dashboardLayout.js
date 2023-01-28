@@ -6,7 +6,7 @@ import '../assets/styles/dashboard.css';
 const DashboardLayout = () => {
   const auth = useAuth();
   const location = useLocation();
-  return auth.user ? (
+  return auth.token ? (
     <div className="app_holder">
       <Navigation />
       <Outlet />

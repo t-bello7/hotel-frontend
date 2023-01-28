@@ -76,8 +76,8 @@ const Login = () => {
             <br />
             <NavLink to="/register" className="btn blue_btn">Register Now</NavLink>
           </div>
+          <ToastContainer />
         </form>
-        <ToastContainer />
       </div>
     </HomeLayout>
   );
