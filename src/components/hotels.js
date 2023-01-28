@@ -7,7 +7,7 @@ import Loader from './Loader';
 import HotelCard from './hotelCard';
 import '../assets/styles/hotels.css';
 
-export default Hotels()= () => {
+const Hotels = () => {
   const { data: hotels, error: hotelError, isLoading: isLoadingHotels } = useGetHotelsQuery();
   const [postHotel, { isLoading, error }] = usePostHotelMutation();
   const [hotelData, setHotelData] = useState({
@@ -87,4 +87,6 @@ export default Hotels()= () => {
       </div>
     </div>
   );
-}
+};
+
+export default Hotels;

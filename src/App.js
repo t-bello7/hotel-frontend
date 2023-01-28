@@ -12,7 +12,7 @@ import HotelShow from './components/hotelShow';
 import './App.css';
 import NotFound from './components/notfound';
 
-App = () => (
+const App = () => (
   <Provider store={store}>
     <BrowserRouter>
       <Routes>

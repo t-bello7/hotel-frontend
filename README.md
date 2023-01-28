@@ -44,7 +44,7 @@
   <summary>Client</summary>
   <ul>
     <li><a href="https://reactjs.org/">React.js</a></li>
-    <li><a href="https://redux.org/">Redux</a></li>
+    <li><a href="https://redux.org/">Redux (RTK Query)</a></li>
   </ul>
 </details>
 

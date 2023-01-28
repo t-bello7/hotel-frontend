@@ -5,7 +5,7 @@ import "../assets/styles/home.css";
 import background from "../assets/images/home-hotel.jpg";
 import HomeLayout from '../layouts/homeLayout';
 
-export default Home = () => (
+const Home = () => (
   <HomeLayout background={background}>
     <div className="btn--container">
       <NavLink to="/register">
@@ -17,3 +17,5 @@ export default Home = () => (
     </div>
   </HomeLayout>
 );
+
+export default Home;

@@ -9,7 +9,7 @@ import { selectUserToken } from '../features/auth/authSlice';
 import Loader from './Loader';
 import '../assets/styles/roomCard.css';
 
-export default RoomCard(props) = () =>{
+const RoomCard = (props) => {
   const { room } = props;
   const { hotelId } = useParams();
   const [display, setDisplay] = useState(false);
@@ -132,9 +132,11 @@ export default RoomCard(props) = () =>{
       </div>
     </div>
   );
-}
+};
 
 RoomCard.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   room: PropTypes.object.isRequired
 };
+
+export default RoomCard;
