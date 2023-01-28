@@ -9,7 +9,7 @@ import { selectUserToken } from '../features/auth/authSlice';
 import Loader from './Loader';
 import '../assets/styles/roomCard.css';
 
-export default function RoomCard(props) {
+export default RoomCard(props) = () =>{
   const { room } = props;
   const { hotelId } = useParams();
   const [display, setDisplay] = useState(false);

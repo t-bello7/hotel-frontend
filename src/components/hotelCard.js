@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import "../assets/styles/hotelCard.css";
 
-export default function HotelCard(props) {
+export default HotelCard(props) = () =>{
   const { hotel } = props;
   const link = `/hotels/${hotel.id}`;
   return (

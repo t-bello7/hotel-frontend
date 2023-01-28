@@ -12,24 +12,22 @@ import HotelShow from './components/hotelShow';
 import './App.css';
 import NotFound from './components/notfound';
 
-function App() {
-  return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route element={<DashboardLayout />}>
-            <Route path="/hotels" element={<Hotels />} />
-            <Route path="/hotels/:hotelId" element={<HotelShow />} />
-            <Route path="bookings" element={<Booking />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  );
-}
+App = () => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<DashboardLayout />}>
+          <Route path="/hotels" element={<Hotels />} />
+          <Route path="/hotels/:hotelId" element={<HotelShow />} />
+          <Route path="bookings" element={<Booking />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </Provider>
+);
 
 export default App;

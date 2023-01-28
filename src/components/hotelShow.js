@@ -6,7 +6,7 @@ import RoomCard from './roomCard';
 import Loader from './Loader';
 import '../assets/styles/hotelShow.css';
 
-export default function HotelShow() {
+export default HotelShow() = () =>{
   const { hotelId } = useParams();
   const { data: hotel, error, isLoading } = useGetHotelQuery(hotelId);
   const { data: rooms, error: roomsError, isLoading: roomsIsLoading } = useGetRoomsQuery(hotelId);
