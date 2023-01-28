@@ -17,6 +17,9 @@ import {
   validateFullName,
   validatePassword,
 } from '../components/validation';
+import HomeLayout from '../layouts/homeLayout';
+import background from '../assets/images/hotel-background.jpg'
+import '../assets/styles/card.css';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -114,13 +117,12 @@ const Register = () => {
     e.preventDefault();
   }
   return (
-    <div className="registration_holder">
-      <h1>REGISTER TO BOOK EASILY</h1>
-      <div className="registration_form_holder">
+    <HomeLayout background={background}>
+      <div className="holder">
         <ToastContainer />
         {error && <div>{error}</div>}
         {loading && <Loader />}
-        <form onSubmit={handleSubmitt} className="login_form">
+        <form onSubmit={handleSubmitt} className="form_holder">
           <div>
             <input id="username" type="name"  className="form_feild" placeholder="FullName" value={fullName} onChange={(e) => setFullName(e.target.value)} />
           </div>
@@ -154,11 +156,11 @@ const Register = () => {
           <div>
             <p> Already have an account? </p>
             <br />
-            <NavLink to="/" className="btn blue_btn"> Login </NavLink>
+            <NavLink to="/login" className="btn blue_btn"> Login </NavLink>
           </div>
         </form>
       </div>
-    </div>
+    </HomeLayout>
   );
 };
 

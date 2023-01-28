@@ -111,7 +111,7 @@ After you're finished please remove all the comments and instructions!
 
 > Add a link to your deployed project.
 
-- [Live Demo Link](https://yourdeployedapplicationlink.com)
+- [Live Demo Link](https://hotel-frontend-rosy.vercel.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -255,9 +255,8 @@ If you like this project...
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-> Give credit to everyone who inspired your codebase.
-
-I would like to thank...
+I would like to thank Marten Bjork for the image
+https://unsplash.com/photos/n_IKQDCyrG0?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
