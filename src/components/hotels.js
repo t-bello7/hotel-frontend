@@ -8,7 +8,7 @@ import HotelCard from './hotelCard';
 import '../assets/styles/hotels.css';
 
 export default function Hotels() {
-  const { data: hotels, error: hotelError, isLoading: isLoadingHotels } = useGetHotelsQuery();
+  const {error: hotelError, isLoading: isLoadingHotels } = useGetHotelsQuery();
   const [postHotel, { isLoading, error }] = usePostHotelMutation();
   const [hotelData, setHotelData] = useState({
     name: '',
