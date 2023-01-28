@@ -5,7 +5,7 @@ import { useGetBookingsQuery } from '../services/hotel';
 import Loader from './Loader';
 
 export default function Booking() {
-  const {error, isLoading } = useGetBookingsQuery();
+  const { data: bookings, error, isLoading } = useGetBookingsQuery();
   const [search, setSearch] = useState("");
   const [popup, setPopup] = useState("popup_window");
 
