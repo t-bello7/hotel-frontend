@@ -1,42 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import { useGetHotelQuery, useGetRoomsQuery, usePostRoomMutation } from '../services/hotel';
 import RoomCard from './roomCard';
-import { fetchRooms } from '../redux/rooms';
-import { fetchHotels } from '../redux/hotels';
-import rooms from './roomList.json';
-import data from './list.json';
+import Loader from './Loader';
 import '../assets/styles/hotelShow.css';
 
 export default function HotelShow() {
-  const hotelRooms = useSelector((state) => state.rooms);
-  const hotels = useSelector((state) => state.hotels);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchHotels(data));
-    dispatch(fetchRooms(rooms));
-  }, []);
-
-  const { hotelName } = useParams();
-  const hotel = hotels.find((h) => h.name === hotelName);
-  const targetHotelRooms = hotelRooms.filter((room) => room.hotelId === hotel.id);
+  const { hotelId } = useParams();
+  const { data: hotel, error, isLoading } = useGetHotelQuery(hotelId);
+  const { data: rooms, error: roomsError, isLoading: roomsIsLoading } = useGetRoomsQuery(hotelId);
+  const [postRoom, { isLoading: roomisLoading, roomError }] = usePostRoomMutation();
+  const [roomData, setRoomData] = useState({
+    name: '',
+    hotel_id: hotelId,
+    type: '',
+    bed_count: 0,
+    price: 0,
+  });
   const [popup, setPopup] = useState("popup_window ");
+
   const display = () => {
     setPopup("popup_window display");
   };
+
+  const handleRoomFormChange = (event) => {
+    setRoomData({
+      ...roomData,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    try {
+      postRoom(roomData);
+      toast.success("Succesfully added Room");
+    } catch (err) {
+      toast.error(roomError);
+    }
+  };
+
   return (
     <div className="hotel_show">
       <div className="hotel_content_panel">
+        { error && <div> Error Loading Data </div>}
+        { isLoading && <Loader /> }
         <div className="image_holder">
-          <img src={hotel?.image} alt="hotel_image" className="banner_image" />
+          {/* <img src={hotel?.image} alt="hotel_image" className="banner_image" /> */}
         </div>
         <div className="hotel_show_holder_header">
           <button type="button" className="reserve_btn text_1" onClick={display}>Add New Room</button>
         </div>
         <div className="rooms_panel">
+          { roomsError && <div> Error Loading Data </div>}
+          { roomsIsLoading && <Loader /> }
           {
-            targetHotelRooms.map((room) => <RoomCard key={room.id} room={room} />)
+            rooms?.map((room) => <RoomCard key={room.id} room={room} />)
           }
         </div>
       </div>
@@ -51,7 +71,7 @@ export default function HotelShow() {
           <p>
             <i className="fa fa-phone green_color" aria-hidden="true" />
             &nbsp;&nbsp;
-            +964 750 111 2222
+            {hotel?.phone_number}
           </p>
           <p>
             <i className="fa fa-envelope green_color" aria-hidden="true" />
@@ -73,15 +93,19 @@ export default function HotelShow() {
               <i className="fa fa-times white_color" />
             </button>
           </div>
-          <form className="add_new_hotel_form" method="get">
-            <input type="text" name="name" className="form_feild" placeholder="Room Name" required />
-            <input type="text" name="image" className="form_feild" placeholder="Room Image" required />
-            <input type="number" name="beds" className="form_feild" placeholder="Beds" min={0} required />
-            <input type="number" name="number" className="form_feild" placeholder="Number" min={0} required />
-            <input type="number" name="price" className="form_feild" placeholder="Price" min={0} required />
-            <input type="number" name="hotel_id" value={hotel.id} hidden readOnly />
-            <input type="number" name="user_id" value={5} hidden readOnly />
+          <form className="add_new_hotel_form" method="post" onSubmit={handleSubmit}>
+            { roomisLoading && <Loader /> }
+            <input type="text" name="name" className="form_feild" onChange={handleRoomFormChange} value={roomData?.name} placeholder="Room Name" required />
+            <input type="number" name="bed_count" className="form_feild" onChange={handleRoomFormChange} value={roomData?.bed_count} placeholder="Beds" min={1} required />
+            <select name="type" id="type" className="form_field" onChange={handleRoomFormChange}>
+              <option value="">-- Please choose a Room Type --</option>
+              <option value="single-room"> Single Room </option>
+              <option value="couple-room"> Couple Room </option>
+              <option value="conference-hall"> Conference Hall </option>
+            </select>
+            <input type="number" name="price" className="form_feild" onChange={handleRoomFormChange} value={roomData?.price} placeholder="Price" min={1} required />
             <button type="submit" className="reserve_btn text_1">Add</button>
+            <ToastContainer />
           </form>
           {/* ------------------------------------- */}
         </div>

@@ -2,8 +2,8 @@ import { render, screen, act } from "@testing-library/react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from "react-redux";
 import Hotels from "../components/hotels";
-import store from "../redux/configStore";
-import data from '../components/list.json';
+import store from "../store";
+import data from "../components/list.json";
 
 describe("Hotels page rendering", () => {
   afterEach(() => {

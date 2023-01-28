@@ -1,16 +1,15 @@
-/* eslint-disable */
-
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import { setCredentials } from '../features/auth/authSlice';
+import { useLoginMutation } from '../services/hotel';
 import Loader from '../components/Loader';
 import 'react-toastify/dist/ReactToastify.css';
-import { login } from '../redux/actions/UserAction';
-import { validateEmail, validatePassword } from '../components/validation';
+import { validateEmail, validatePassword } from '../hooks/validation';
 import InlineError from '../components/InlineError';
 import HomeLayout from '../layouts/homeLayout';
-import background from '../assets/images/hotel-background.jpg'
+import background from '../assets/images/hotel-background.jpg';
 import '../assets/styles/card.css';
 
 const Login = () => {
@@ -21,12 +20,10 @@ const Login = () => {
   const navigate = useNavigate();
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [submited, setSubmited] = useState(false);
   const [valid, setValid] = useState(false);
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const [login, { isLoading, error }] = useLoginMutation();
   const notify = () => {
     toast.error(error);
   };
@@ -44,16 +41,14 @@ const Login = () => {
     } else {
       setValid(true);
     }
-    if (userInfo) {
-      navigate('/');
-    }
-  }, [emailError, passwordError, userInfo, navigate, email, password]);
+  }, [emailError, passwordError, navigate, email, password]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setSubmited(true);
     if (valid) {
-      dispatch(login(email, password));
+      const user = await login({ email, password }).unwrap();
+      dispatch(setCredentials(user));
+      navigate('/hotels');
       snotify();
     } else {
       notify();
@@ -62,28 +57,28 @@ const Login = () => {
 
   return (
     <HomeLayout background={background}>
-    <div className='holder'>
-      {loading && <Loader />}
-      <form onSubmit={handleSubmit} className="form_holder">
-        <div>
-          <input id="email" type="email" className="form_feild" placeholder="Email" ref={emailRef} value={email} onChange={(e) => setEmail(e.target.value)} />
-          {emailError && <InlineError error={emailError} />}
-        </div>
-        <div className="mb-6">
-          <input id="password" type="password" className="form_feild" placeholder="**********" ref={passwordRef} value={password} onChange={(e) => setPassword(e.target.value)} />
-          {passwordError && password && <InlineError error={passwordError} />}
-        </div>
-        <div>
-          <button type="submit" onClick={error && notify()} className="btn green_btn">Sign In</button>
-        </div>
-        <div>
-          <p className="white_color">Don&#39;t have an account yet?</p>
-          <br />
-          <NavLink to="/register" className="btn blue_btn">Register Now</NavLink>
-        </div>
-      </form>
-      <ToastContainer />
-    </div>
+      <div className="holder">
+        {isLoading && <Loader />}
+        <form onSubmit={handleSubmit} className="form_holder">
+          <div>
+            <input id="email" type="email" className="form_feild" placeholder="Email" ref={emailRef} value={email} onChange={(e) => setEmail(e.target.value)} />
+            {emailError && <InlineError error={emailError} />}
+          </div>
+          <div className="mb-6">
+            <input id="password" type="password" className="form_feild" placeholder="**********" ref={passwordRef} value={password} onChange={(e) => setPassword(e.target.value)} />
+            {passwordError && password && <InlineError error={passwordError} />}
+          </div>
+          <div>
+            <button type="submit" onClick={error && notify()} className="btn green_btn">Sign In</button>
+          </div>
+          <div>
+            <p className="white_color">Don&#39;t have an account yet?</p>
+            <br />
+            <NavLink to="/register" className="btn blue_btn">Register Now</NavLink>
+          </div>
+          <ToastContainer />
+        </form>
+      </div>
     </HomeLayout>
   );
 };

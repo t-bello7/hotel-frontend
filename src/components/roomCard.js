@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
+import jwt from 'jwt-decode';
 import PropTypes from 'prop-types';
-import '../assets/styles/roomCard.css';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import { usePostBookingMutation } from '../services/hotel';
+import { selectUserToken } from '../features/auth/authSlice';
+import Loader from './Loader';
+import '../assets/styles/roomCard.css';
 
 export default function RoomCard(props) {
   const { room } = props;
-  const { hotelName } = useParams();
+  const { hotelId } = useParams();
   const [display, setDisplay] = useState(false);
-  const [total, setTotal] = useState(0);
-
-  const visibile = (room.number) ? "reserve_btn text_1" : "reserve_btn text_1 disable";
+  const token = useSelector(selectUserToken);
+  const [postBooking, { isLoading: bookingisLoading, bookingError }] = usePostBookingMutation();
+  const [bookingData, setBookingData] = useState({
+    days: 0,
+    booking_date: '',
+    amount: 0,
+    hotel_id: hotelId,
+    room_id: room.id,
+    user_id: jwt(token).user_id
+  });
+  console.log(hotelId);
+  const visibile = (room.name) ? "reserve_btn text_1" : "reserve_btn text_1 disable";
   const popupClass = display ? "popup_window display" : "popup_window";
 
   const reserving = () => {
@@ -18,6 +33,30 @@ export default function RoomCard(props) {
 
   const close = () => {
     setDisplay(false);
+  };
+
+  const handleBookFormChange = (event) => {
+    if (event.target.name === 'days') {
+      setBookingData({
+        ...bookingData,
+        [event.target.name]: event.target.value,
+        amount: parseInt(event.target.value, 10) * room.price
+      });
+    } else {
+      setBookingData({
+        ...bookingData,
+        [event.target.name]: event.target.value
+      });
+    }
+  };
+
+  const handleSubmit = () => {
+    try {
+      postBooking(bookingData);
+      toast.success("Succesfully added Booking");
+    } catch (err) {
+      toast.error(bookingError);
+    }
   };
 
   return (
@@ -30,17 +69,16 @@ export default function RoomCard(props) {
           <h2 className="text_1">{room.name}</h2>
           <h2 className="text_1">
             <i className="fa fa-money green_color" />
-            &nbsp;&nbsp; $
+            $
             {room.price}
           </h2>
         </div>
         <div className="d_flex space_between">
           <h2 className="text_1">
             <i className="fa fa-bed green_color" aria-hidden="true" />
-            &nbsp;&nbsp;
             {room.beds}
           </h2>
-          <button type="button" className={visibile} onClick={reserving} disabled={!room.number}>Book Now</button>
+          <button type="button" className={visibile} onClick={reserving}>Book Now</button>
           <div className={popupClass}>
             <div className="reserve_box">
               <div className="popupheader">
@@ -50,58 +88,44 @@ export default function RoomCard(props) {
               </div>
               <h1>
                 <i className="fa fa-building green_color" />
-                &nbsp;&nbsp;
-                {hotelName}
+                {room.id}
               </h1>
               <hr />
               <h3 className="fixed_info">
                 <i className="fa fa-tag green_color" />
-                &nbsp;&nbsp;&nbsp;
                 Room Type:
-                &nbsp;
                 {room.name}
               </h3>
               <h3 className="fixed_info">
                 <i className="fa fa-bed green_color" />
-                &nbsp;&nbsp;
                 Beds:
-                &nbsp;
                 {room.beds}
               </h3>
               <h3 className="fixed_info">
                 <i className="fa fa-money green_color" />
-                &nbsp;&nbsp;
-                Price:
-                &nbsp;$
+                Price: $
                 {room.price}
               </h3>
-              <form className="reserve_form" method="get">
+              <form className="reserve_form" method="get" onSubmit={handleSubmit}>
+                { bookingisLoading && <Loader /> }
                 <label htmlFor="formDate">
                   From:
-                  &nbsp;
-                  <input type="date" name="date" className="form_feild" id="formDate" required />
+                  <input type="date" name="booking_date" onChange={handleBookFormChange} value={bookingData?.booking_date} className="form_field" id="formDate" required />
                 </label>
-                &nbsp;&nbsp;&nbsp;&nbsp;
                 <br />
                 <br />
                 <label htmlFor="daysNumber">
-                  &nbsp;&nbsp;
                   For:
-                  &nbsp;
-                  <input type="number" name="days" className="form_feild small_feild" id="daysNumber" onChange={(event) => { setTotal(event.target.value * room.price); }} min="0" required />
-                  &nbsp; Days
+                  <input type="number" name="days" className="form_field small_field" value={bookingData?.days} onChange={handleBookFormChange} id="daysNumber" min="1" required />
+                  Days
                 </label>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                Total:
-                &nbsp;$
-                { total }
+                Total:  $
+                { bookingData.amount }
                 <br />
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <input type="number" name="user_id" value={1} hidden readOnly />
-                  <input type="number" name="room_id" value={room.id} hidden readOnly />
-                  <input type="number" name="amount" value={total} hidden readOnly />
                   <button type="submit" className="reserve_btn text_1">Reserve</button>
                 </div>
+                <ToastContainer />
               </form>
             </div>
           </div>
