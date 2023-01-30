@@ -1,0 +1,40 @@
+.table {
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+
+.table .header {
+  background-color: #a2e771 !important;
+}
+
+.table th,
+tr,
+td {
+  text-align: center;
+  margin: 0;
+}
+
+.table th {
+  font-weight: 500;
+}
+
+.table tr:nth-child(odd) {
+  background-color: rgb(219, 219, 219);
+}
+
+.table tr:hover {
+  background-color: #949494;
+}
+
+.cancel_btn {
+  background-color: transparent;
+  color: rgb(255, 0, 0);
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+}
+
+.cancel_btn:hover {
+  color: rgb(100, 9, 9);
+}
