@@ -19,7 +19,7 @@ td {
   font-weight: 500;
 }
 
-.table tr:nth-child(odd) {
+.table tbody:nth-child(odd) {
   background-color: rgb(219, 219, 219);
 }
 
@@ -37,4 +37,32 @@ td {
 
 .cancel_btn:hover {
   color: rgb(100, 9, 9);
+}
+
+.header_feild {
+  font-size: 12px;
+}
+
+.data_feild {
+  font-size: 10px;
+}
+
+@media screen and (min-width: 550px) {
+  .header_feild {
+    font-size: 14px;
+  }
+
+  .data_feild {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .header_feild {
+    font-size: 16px;
+  }
+
+  .data_feild {
+    font-size: 14px;
+  }
 }
