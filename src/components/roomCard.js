@@ -9,7 +9,7 @@ import { selectUserToken } from '../features/auth/authSlice';
 import Loader from './Loader';
 import '../assets/styles/roomCard.css';
 
-export default function RoomCard(props) {
+const RoomCard = (props) => {
   const { room } = props;
   const { hotelId } = useParams();
   const [display, setDisplay] = useState(false);
@@ -23,7 +23,6 @@ export default function RoomCard(props) {
     room_id: room.id,
     user_id: jwt(token).user_id
   });
-  console.log(hotelId);
   const visibile = (room.name) ? "reserve_btn text_1" : "reserve_btn text_1 disable";
   const popupClass = display ? "popup_window display" : "popup_window";
 
@@ -133,9 +132,11 @@ export default function RoomCard(props) {
       </div>
     </div>
   );
-}
+};
 
 RoomCard.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   room: PropTypes.object.isRequired
 };
+
+export default RoomCard;

@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function Navigation() {
+const Navigation = () => {
   // eslint-disable-next-line arrow-body-style
   const activeStyle = ({ isActive }) => {
     return ({
@@ -44,4 +44,6 @@ export default function Navigation() {
       </div>
     </div>
   );
-}
+};
+
+export default Navigation;
