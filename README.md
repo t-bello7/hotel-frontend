@@ -212,6 +212,8 @@ If you like this project...
 I would like to thank Microverse for giving me the opportunity to work on this project.
 - LazyCoders
 - Coding Partners
+I would like to thank Marten Bjork for the image
+https://unsplash.com/photos/n_IKQDCyrG0?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
