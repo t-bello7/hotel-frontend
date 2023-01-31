@@ -1,6 +1,6 @@
 .hotel_show {
   display: grid;
-  grid-template-columns: 4fr 1fr;
+  grid-template-columns: 1fr;
 }
 
 .hotel_content_panel {
@@ -21,9 +21,13 @@
 .hotel_info_panel {
   height: 100vh;
   border-left: 0.5px solid rgb(189, 189, 189);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: none;
+}
+
+.mobile_hotel_info {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed silver;
 }
 
 .image_holder {
@@ -43,8 +47,37 @@
 
 .hotel_show_holder_header {
   border-bottom: 0.5px solid rgb(172, 172, 172);
-  padding: 20px;
+  padding: 10px;
   margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mob_menu_btn {
+  background-color: transparent;
+  border: 0;
+  font-size: 20px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.mob_nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 0;
+  background-color: rgb(172, 233, 157);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.mob_nav_opened {
+  width: 250px;
+  padding: 10px;
+  box-shadow: 0 0 15px gray;
 }
 
 .info_holder {
@@ -56,6 +89,34 @@
 
 .bg_purple {
   background-color: rgb(135, 0, 177);
+}
+
+.green_color {
+  color: rgb(104, 192, 82);
+}
+
+@media screen and (min-width: 700px) {
+  .hotel_show {
+    grid-template-columns: 4fr 1fr;
+  }
+
+  .hotel_info_panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .mobile_hotel_info {
+    display: none;
+  }
+
+  .mob_menu_btn {
+    display: none;
+  }
+
+  .mob_nav {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 900px) {
