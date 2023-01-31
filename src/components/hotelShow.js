@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { useGetHotelQuery, useGetRoomsQuery, usePostRoomMutation } from '../services/hotel';
 import RoomCard from './roomCard';
@@ -19,9 +19,25 @@ export default function HotelShow() {
     price: 0,
   });
   const [popup, setPopup] = useState("popup_window ");
+  const [navstatus, setNavstatus] = useState("mob_nav");
+
+  const mobMenuAction = () => {
+    if (navstatus === "mob_nav") setNavstatus("mob_nav mob_nav_opened");
+    else {
+      setNavstatus("mob_nav");
+    }
+  };
 
   const display = () => {
     setPopup("popup_window display");
+  };
+
+  // eslint-disable-next-line arrow-body-style
+  const activeStyle = ({ isActive }) => {
+    return ({
+      // backgroundColor: isActive ? 'var(--color-accent)' : 'white',
+      color: isActive ? 'white' : '#2b2b2b',
+    });
   };
 
   const handleRoomFormChange = (event) => {
@@ -51,6 +67,34 @@ export default function HotelShow() {
         </div>
         <div className="hotel_show_holder_header">
           <button type="button" className="reserve_btn text_1" onClick={display}>Add New Room</button>
+          <button type="button" className="mob_menu_btn" onClick={mobMenuAction}>
+            <i className="fa fa-bars green_color" />
+          </button>
+        </div>
+        <div className="mobile_hotel_info">
+          <h1 className="mob_h_name">{hotel?.name}</h1>
+          <div>
+            <p>
+              Size :
+              &nbsp;&nbsp;
+              {hotel?.size}
+            </p>
+            <p>
+              <i className="fa fa-phone green_color" aria-hidden="true" />
+              &nbsp;&nbsp;
+              {hotel?.phone_number}
+            </p>
+            <p>
+              <i className="fa fa-envelope green_color" aria-hidden="true" />
+              &nbsp;&nbsp;
+              {hotel?.email}
+            </p>
+            <p>
+              <i className="fa fa-map-marker green_color" aria-hidden="true" />
+              &nbsp;&nbsp;
+              {hotel?.location}
+            </p>
+          </div>
         </div>
         <div className="rooms_panel">
           { roomsError && <div> Error Loading Data </div>}
@@ -58,6 +102,28 @@ export default function HotelShow() {
           {
             rooms?.map((room) => <RoomCard key={room.id} room={room} />)
           }
+        </div>
+        <div className="footer">
+          <div className="text_center">
+            <div className="social_link_holder">
+              <a href="http://twitter.com">
+                <i className="fa fa-twitter social_link" aria-hidden="true" />
+              </a>
+              <a href="http://facebook.com">
+                <i className="fa fa-facebook social_link" aria-hidden="true" />
+              </a>
+              <a href="http://googleplus.com">
+                <i className="fa fa-google-plus social_link" aria-hidden="true" />
+              </a>
+              <a href="http://vimeo.com">
+                <i className="fa fa-vimeo social_link" aria-hidden="true" />
+              </a>
+              <a href="http://pinterest.com">
+                <i className="fa fa-pinterest-p social_link" aria-hidden="true" />
+              </a>
+            </div>
+            <p className="copyright_text">&copy; 2023 Hotel Booking and rating</p>
+          </div>
         </div>
       </div>
       <div className="hotel_info_panel">
@@ -96,18 +162,36 @@ export default function HotelShow() {
           <form className="add_new_hotel_form" method="post" onSubmit={handleSubmit}>
             { roomisLoading && <Loader /> }
             <input type="text" name="name" className="form_feild" onChange={handleRoomFormChange} value={roomData?.name} placeholder="Room Name" required />
-            <input type="number" name="bed_count" className="form_feild" onChange={handleRoomFormChange} value={roomData?.bed_count} placeholder="Beds" min={1} required />
+            <input type="text" name="image" className="form_feild" onChange={handleRoomFormChange} value={roomData?.image} placeholder="Image" required />
+            <input type="number" name="bed_count" className="form_feild" onChange={handleRoomFormChange} value={roomData?.beds} placeholder="Beds" min={1} required />
             <select name="type" id="type" className="form_field" onChange={handleRoomFormChange}>
               <option value="">-- Please choose a Room Type --</option>
               <option value="single-room"> Single Room </option>
               <option value="couple-room"> Couple Room </option>
               <option value="conference-hall"> Conference Hall </option>
             </select>
-            <input type="number" name="price" className="form_feild" onChange={handleRoomFormChange} value={roomData?.price} placeholder="Price" min={1} required />
+            <input type="number" name="price" className="form_feild" onChange={handleRoomFormChange} placeholder="Price" min={1} required />
             <button type="submit" className="reserve_btn text_1">Add</button>
             <ToastContainer />
           </form>
           {/* ------------------------------------- */}
+        </div>
+      </div>
+      <div className={navstatus}>
+        <button type="button" className="mob_menu_btn" onClick={mobMenuAction}>
+          <i className="fa fa-times white_color" />
+        </button>
+        <br />
+        <br />
+        <h1 className="text_1 text_center">Hotel Booking</h1>
+        <br />
+        <br />
+        <div className="mob_nav_holder text_center">
+          <nav className="navbar">
+            <NavLink className="nav_link" style={activeStyle} to="/hotels">Hotels</NavLink>
+            <NavLink className="nav_link" style={activeStyle} to="/bookings">Bookings</NavLink>
+            <a className="nav_link" href="/">Logout</a>
+          </nav>
         </div>
       </div>
     </div>

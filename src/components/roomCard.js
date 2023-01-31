@@ -23,7 +23,6 @@ export default function RoomCard(props) {
     room_id: room.id,
     user_id: jwt(token).user_id
   });
-  console.log(hotelId);
   const visibile = (room.name) ? "reserve_btn text_1" : "reserve_btn text_1 disable";
   const popupClass = display ? "popup_window display" : "popup_window";
 
