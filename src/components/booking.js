@@ -46,25 +46,25 @@ const Booking = () => {
               <th> </th>
             </tr>
           </thead>
-          {
+          <tbody>
+            {
             bookings?.map((booking) => (
-              <tbody key={booking.id}>
-                <tr>
-                  <td className="data_feild">name</td>
-                  <td className="data_feild">name</td>
-                  <td className="data_feild">{booking.booking_date.substr(0, 10)}</td>
-                  <td className="data_feild">{booking.days}</td>
-                  <td className="data_feild">
-                    $
-                    {booking.amount}
-                  </td>
-                  <td>
-                    <button type="button" className="cancel_btn">Cancel</button>
-                  </td>
-                </tr>
-              </tbody>
+              <tr key={booking.id}>
+                <td className="data_feild">name</td>
+                <td className="data_feild">name</td>
+                <td className="data_feild">{booking.booking_date.substr(0, 10)}</td>
+                <td className="data_feild">{booking.days}</td>
+                <td className="data_feild">
+                  $
+                  {booking.amount}
+                </td>
+                <td>
+                  <button type="button" className="cancel_btn">Cancel</button>
+                </td>
+              </tr>
             ))
             }
+          </tbody>
         </table>
       </div>
       <div className="footer">

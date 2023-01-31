@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 const HomeLayout = ({ background, children }) => {
   const auth = useAuth();
   const location = useLocation();
-  return auth.token ? (
+  return auth.token.token ? (
     <Navigate to="/hotels" state={{ from: location }} />
   ) : (
     <div className="main" style={{ backgroundImage: `url(${background})` }}>

@@ -1,8 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { loadAuthState } from '../../hooks/localstorage';
+
+const token = loadAuthState();
+
+const initialState = {
+  token,
+};
 
 const slice = createSlice({
   name: 'auth',
-  initialState: { token: null },
+  initialState,
   reducers: {
     setCredentials: (
       state,
