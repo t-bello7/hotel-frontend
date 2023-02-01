@@ -1,17 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import "../assets/styles/hotelCard.css";
+import { ToastContainer, toast } from 'react-toastify';
+import Loader from './Loader';
+
+import '../assets/styles/hotels.css';
+import { usePutHotelMutation } from '../services/hotel';
 
 const HotelCard = (props) => {
+  const [putHotel, { isLoading, error }] = usePutHotelMutation();
+  // const [deleteHotel, { isLoading, error }] = useDeleteHotelMutation();
   const { hotel } = props;
+
+  const visibile = "reserve_btn text_1";
+  const [popup, setPopup] = useState("popup_window");
+  const [deletepopup, setdeletePopup] = useState("popup_window");
+
+  const [hotelData, setHotelData] = useState({
+    name: hotel.name,
+    location: hotel.location,
+    email: hotel.email,
+    phone_number: hotel.phone_number
+  });
+
+  const editHotel = () => {
+    setPopup("popup_window display");
+  };
+
+  const deleteHotel = () => {
+    setdeletePopup("popup_window display");
+  };
+
+  const handleHotelFormChange = (event) => {
+    setHotelData({
+      ...hotelData,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    try {
+      putHotel(hotel.id, hotelData);
+      toast.success("Succefully Updated hotel");
+      setPopup("popup_window");
+    } catch (err) {
+      toast.error(error);
+    }
+  };
+
   const link = `/hotels/${hotel.id}`;
   return (
-    <NavLink to={link}>
+    // <NavLink to={link}>
+    <div>
       <div className="card">
-        <div className="card_img_holder">
-          <img className="card_img" src={hotel.image} alt="" />
-        </div>
+        <NavLink to={link}>
+          <div className="card_img_holder">
+            <img className="card_img" src={hotel.image} alt="" />
+          </div>
+        </NavLink>
         <div className="card_info">
           <h2 className="card_title">
             <i className="fa fa-building green_color" aria-hidden="true" />
@@ -35,9 +83,58 @@ const HotelCard = (props) => {
               {hotel.size}
             </h3>
           </div>
+          <div>
+            <button type="button" className={visibile} onClick={editHotel}>Edit Hotel</button>
+            <button type="button" className={visibile} onClick={deleteHotel}>Delete Hotel</button>
+          </div>
         </div>
       </div>
-    </NavLink>
+
+      {/* ----------------------------------- */}
+      {/* ----------- Edit Hotel form Popup window  */}
+      <div className={popup}>
+        <div className="add_new_hotel_box">
+          <div className="add_new_hotel_header">
+            <h2 className="white_color">Edit Hotel</h2>
+            <button type="button" onClick={() => setPopup("popup_window")} className="close_btn">
+              <i className="fa fa-times white_color" />
+            </button>
+          </div>
+          {isLoading && <Loader />}
+          <form className="add_new_hotel_form" method="post" onSubmit={handleSubmit}>
+            <input type="text" name="name" className="form_feild" placeholder="Hotel Name" onChange={handleHotelFormChange} value={hotelData?.name} required />
+            <input type="text" name="location" className="form_feild" placeholder="Location" onChange={handleHotelFormChange} value={hotelData?.location} required />
+            <input type="email" name="email" className="form_feild" placeholder="Email" onChange={handleHotelFormChange} value={hotelData?.email} required />
+            <input type="text" name="phone_number" placeholder="Phone Number" onChange={handleHotelFormChange} value={hotelData?.phone_number} required />
+            <button type="submit" className="reserve_btn text_1">Update</button>
+          </form>
+          {/* ------------------------------------- */}
+          <ToastContainer />
+        </div>
+      </div>
+      {/* </NavLink> */}
+
+      {/* ----------------------------------- */}
+      {/* ----------- Delete Hotel form Popup window  */}
+      <div className={deletepopup}>
+        <div className="add_new_hotel_box">
+          <div className="add_new_hotel_header">
+            <h2 className="white_color">Delete Hotel</h2>
+            <button type="button" onClick={() => setdeletePopup("popup_window")} className="close_btn">
+              <i className="fa fa-times white_color" />
+            </button>
+          </div>
+          <div>
+            <p>Would You Like to delete This Hotel</p>
+            <button type="submit" className="reserve_btn text_1">Cancel</button>
+            <button type="submit" className="reserve_btn text_1">Delete</button>
+          </div>
+          {/* ------------------------------------- */}
+          <ToastContainer />
+        </div>
+      </div>
+      {/* </NavLink> */}
+    </div>
   );
 };
 
