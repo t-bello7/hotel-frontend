@@ -6,11 +6,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import Loader from './Loader';
 
 import '../assets/styles/hotels.css';
-import { usePutHotelMutation } from '../services/hotel';
+import { useClearHotelMutation, useUpdateHotelMutation } from '../services/hotel';
 
 const HotelCard = (props) => {
-  const [putHotel, { isLoading, error }] = usePutHotelMutation();
-  // const [deleteHotel, { isLoading, error }] = useDeleteHotelMutation();
+  const [updateHotel, { isLoading, error }] = useUpdateHotelMutation();
+  const [clearHotel, { loading, errors }] = useClearHotelMutation();
   const { hotel } = props;
 
   const visibile = "reserve_btn text_1";
@@ -42,9 +42,20 @@ const HotelCard = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      putHotel(hotel.id, hotelData);
-      toast.success("Succefully Updated hotel");
+      updateHotel(hotel.id, hotelData);
       setPopup("popup_window");
+      toast.success("Succefully Updated hotel");
+    } catch (err) {
+      toast.error(error);
+    }
+  };
+
+  const handledeleteSubmit = (event) => {
+    event.preventDefault();
+    try {
+      clearHotel(hotel.id);
+      toast.success("Succefully Deleted hotel");
+      setdeletePopup("popup_window");
     } catch (err) {
       toast.error(error);
     }
@@ -126,8 +137,8 @@ const HotelCard = (props) => {
           </div>
           <div>
             <p>Would You Like to delete This Hotel</p>
-            <button type="submit" className="reserve_btn text_1">Cancel</button>
-            <button type="submit" className="reserve_btn text_1">Delete</button>
+            <button type="submit" className="reserve_btn text_1" onClick={() => setdeletePopup("popup_window")}>Cancel</button>
+            <button type="submit" className="reserve_btn text_1" onClick={handledeleteSubmit}>Delete</button>
           </div>
           {/* ------------------------------------- */}
           <ToastContainer />
