@@ -189,6 +189,7 @@ const RoomCard = (props) => {
               <i className="fa fa-times white_color" />
             </button>
           </div>
+          {isLoading && <Loader />}
           <form className="add_new_hotel_form" method="post" onSubmit={handleRoomUpdateSubmit}>
             {roomisLoading && <Loader />}
             <input type="text" name="name" className="form_feild" onChange={handleRoomFormChange} value={roomData?.name} placeholder="Room Name" required />

@@ -10,7 +10,7 @@ import { useClearHotelMutation, useUpdateHotelMutation } from '../services/hotel
 
 const HotelCard = (props) => {
   const [updateHotel, { isLoading, error }] = useUpdateHotelMutation();
-  const [clearHotel, { loading, errors }] = useClearHotelMutation();
+  const [clearHotel, { isLoading: hotelLoding, error: hotelError }] = useClearHotelMutation();
   const { hotel } = props;
 
   const visibile = "reserve_btn text_1";
@@ -57,7 +57,7 @@ const HotelCard = (props) => {
       toast.success("Succefully Deleted hotel");
       setdeletePopup("popup_window");
     } catch (err) {
-      toast.error(error);
+      toast.error(hotelError);
     }
   };
 
@@ -135,6 +135,7 @@ const HotelCard = (props) => {
               <i className="fa fa-times white_color" />
             </button>
           </div>
+          {hotelLoding && <Loader />}
           <div>
             <p>Would You Like to delete This Hotel</p>
             <button type="submit" className="reserve_btn text_1" onClick={() => setdeletePopup("popup_window")}>Cancel</button>
