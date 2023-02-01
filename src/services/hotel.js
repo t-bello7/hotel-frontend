@@ -1,5 +1,6 @@
 /* eslint-disable prefer-destructuring */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { saveAuthState } from '../hooks/localstorage';
 
 export const hotelApi = createApi({
   reducerPath: 'hotelApi',
@@ -9,6 +10,7 @@ export const hotelApi = createApi({
       const token = getState().auth.token || false;
       if (token) {
         headers.set('authorization', `${token}`);
+        saveAuthState(token);
       }
       return headers;
     },

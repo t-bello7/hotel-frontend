@@ -1,15 +1,20 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { clearAuthState } from '../hooks/localstorage';
 
 const Navigation = () => {
-  // eslint-disable-next-line arrow-body-style
-  const activeStyle = ({ isActive }) => {
-    return ({
-      backgroundColor: isActive ? 'var(--color-accent)' : 'white',
-      color: isActive ? 'white' : '#2b2b2b',
-    });
+  const navigate = useNavigate();
+  const activeStyle = ({ isActive }) => ({
+    backgroundColor: isActive ? 'var(--color-accent)' : 'white',
+    color: isActive ? 'white' : '#2b2b2b',
+  });
+
+  const handleLogout = () => {
+    clearAuthState();
+    navigate('/');
   };
+
   return (
     <div className="navigation">
       <div className="text_center">
@@ -19,7 +24,7 @@ const Navigation = () => {
         <nav className="navbar">
           <NavLink className="nav_link" style={activeStyle} to="/hotels">Hotels</NavLink>
           <NavLink className="nav_link" style={activeStyle} to="/bookings">Bookings</NavLink>
-          <a className="nav_link" href="/">Logout</a>
+          <button className="nav_link nav_link-btn" type="button" onClick={handleLogout}> Logout </button>
         </nav>
       </div>
       <div className="text_center">

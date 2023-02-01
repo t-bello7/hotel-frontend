@@ -60,6 +60,10 @@
   transition: all 0.2s ease;
 }
 
+.nav_link-btn {
+  border: none;
+}
+
 .social_link_holder {
   display: flex;
   gap: 15px;
