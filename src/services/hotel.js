@@ -39,6 +39,22 @@ export const hotelApi = createApi({
       }),
       invalidatesTags: ['Hotels']
     }),
+    putHotel: builder.mutation({
+      query: (hotelId, credentials) => ({
+        url: `hotels/${hotelId}`,
+        method: 'PUT',
+        body: credentials
+      }),
+      invalidatesTags: ['Hotels']
+    }),
+    deleteHotel: builder.mutation({
+      query: (hotelId, credentials) => ({
+        url: `hotels/${hotelId}`,
+        method: 'DELETE',
+        body: credentials
+      }),
+      invalidatesTags: ['Hotels']
+    }),
     getHotels: builder.query({
       query: () => 'hotels',
       providesTags: ['Hotels']
@@ -82,6 +98,8 @@ export const {
   useSignupMutation,
   useLoginMutation,
   usePostHotelMutation,
+  usePutHotelMutation,
+  useDeleteHotelMutation,
   useGetHotelQuery,
   useGetHotelsQuery,
   usePostRoomMutation,

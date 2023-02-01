@@ -60,8 +60,8 @@ const HotelShow = () => {
   return (
     <div className="hotel_show">
       <div className="hotel_content_panel">
-        { error && <div> Error Loading Data </div>}
-        { isLoading && <Loader /> }
+        {error && <div> Error Loading Data </div>}
+        {isLoading && <Loader />}
         <div className="image_holder">
           {/* <img src={hotel?.image} alt="hotel_image" className="banner_image" /> */}
         </div>
@@ -97,8 +97,8 @@ const HotelShow = () => {
           </div>
         </div>
         <div className="rooms_panel">
-          { roomsError && <div> Error Loading Data </div>}
-          { roomsIsLoading && <Loader /> }
+          {roomsError && <div> Error Loading Data </div>}
+          {roomsIsLoading && <Loader />}
           {
             rooms?.map((room) => <RoomCard key={room.id} room={room} />)
           }
@@ -160,7 +160,7 @@ const HotelShow = () => {
             </button>
           </div>
           <form className="add_new_hotel_form" method="post" onSubmit={handleSubmit}>
-            { roomisLoading && <Loader /> }
+            {roomisLoading && <Loader />}
             <input type="text" name="name" className="form_feild" onChange={handleRoomFormChange} value={roomData?.name} placeholder="Room Name" required />
             <input type="text" name="image" className="form_feild" onChange={handleRoomFormChange} value={roomData?.image} placeholder="Image" required />
             <input type="number" name="bed_count" className="form_feild" onChange={handleRoomFormChange} value={roomData?.beds} placeholder="Beds" min={1} required />
