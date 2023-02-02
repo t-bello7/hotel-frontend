@@ -39,7 +39,7 @@ export const hotelApi = createApi({
       }),
       invalidatesTags: ['Hotels']
     }),
-    putHotel: builder.mutation({
+    updateHotel: builder.mutation({
       query: (hotelId, credentials) => ({
         url: `hotels/${hotelId}`,
         method: 'PUT',
@@ -47,13 +47,11 @@ export const hotelApi = createApi({
       }),
       invalidatesTags: ['Hotels']
     }),
-    deleteHotel: builder.mutation({
-      query: (hotelId, credentials) => ({
+    clearHotel: builder.mutation({
+      query: (hotelId) => ({
         url: `hotels/${hotelId}`,
-        method: 'DELETE',
-        body: credentials
-      }),
-      invalidatesTags: ['Hotels']
+        method: 'DELETE'
+      })
     }),
     getHotels: builder.query({
       query: () => 'hotels',
@@ -78,6 +76,20 @@ export const hotelApi = createApi({
       }),
       providesTags: ['Rooms']
     }),
+    updateRoom: builder.mutation({
+      query: (roomId, credentials) => ({
+        url: `rooms/${roomId}`,
+        method: 'PUT',
+        body: credentials
+      }),
+      invalidatesTags: ['Rooms']
+    }),
+    clearRoom: builder.mutation({
+      query: (roomId) => ({
+        url: `rooms/${roomId}`,
+        method: 'DELETE'
+      })
+    }),
     postBooking: builder.mutation({
       query: (credentials) => ({
         url: 'bookings',
@@ -98,11 +110,13 @@ export const {
   useSignupMutation,
   useLoginMutation,
   usePostHotelMutation,
-  usePutHotelMutation,
-  useDeleteHotelMutation,
+  useUpdateHotelMutation,
+  useClearHotelMutation,
   useGetHotelQuery,
   useGetHotelsQuery,
   usePostRoomMutation,
+  useUpdateRoomMutation,
+  useClearRoomMutation,
   useGetRoomsQuery,
   usePostBookingMutation,
   useGetBookingsQuery,
