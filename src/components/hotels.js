@@ -2,24 +2,40 @@
 /* eslint-disable array-callback-return */
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import jwt from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
 import { usePostHotelMutation, useGetHotelsQuery } from '../services/hotel';
 import Loader from './Loader';
 import HotelCard from './hotelCard';
+import { selectUserToken } from '../features/auth/authSlice';
 import '../assets/styles/hotels.css';
 
 const Hotels = () => {
+  const token = useSelector(selectUserToken);
   const { data: hotels, error: hotelError, isLoading: isLoadingHotels } = useGetHotelsQuery();
   const [postHotel, { isLoading, error }] = usePostHotelMutation();
+  const [image, setImage] = useState({
+    imagePreview: "",
+    pictureAsFile: "",
+  });
+
   const [hotelData, setHotelData] = useState({
     name: '',
     location: '',
     email: '',
-    phone_number: ''
+    phone_number: '',
   });
   const [popup, setPopup] = useState("popup_window");
   const [search, setSearch] = useState("");
   const [navstatus, setNavstatus] = useState("mob_nav");
+
+  const uploadPicture = (e) => {
+    setImage({
+      imagePreview: URL.createObjectURL(e.target.files[0]),
+      pictureAsFile: e.target.files[0]
+    });
+  };
 
   const mobMenuAction = () => {
     if (navstatus === "mob_nav") setNavstatus("mob_nav mob_nav_opened");
@@ -31,7 +47,6 @@ const Hotels = () => {
   // eslint-disable-next-line arrow-body-style
   const activeStyle = ({ isActive }) => {
     return ({
-      // backgroundColor: isActive ? 'var(--color-accent)' : 'white',
       color: isActive ? 'white' : '#2b2b2b',
     });
   };
@@ -50,7 +65,20 @@ const Hotels = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      postHotel(hotelData);
+      const getFormData = (object) => Object.keys(object).reduce((formData, key) => {
+        formData.append(key, object[key]);
+        return formData;
+      }, new FormData());
+      const credentials = getFormData(hotelData);
+
+      if (image.pictureAsFile) {
+        credentials.append(
+          "image",
+          image.pictureAsFile
+        );
+      }
+      const { user_id: userId } = jwt(token);
+      postHotel({ userId, credentials });
       toast.success("Succefully added hotel");
     } catch (err) {
       toast.error(error);
@@ -99,6 +127,13 @@ const Hotels = () => {
               <input type="text" name="location" className="form_feild" placeholder="Location" onChange={handleHotelFormChange} value={hotelData?.location} required />
               <input type="email" name="email" className="form_feild" placeholder="Email" onChange={handleHotelFormChange} value={hotelData?.email} required />
               <input type="text" name="phone_number" placeholder="Phone Number" onChange={handleHotelFormChange} value={hotelData?.phone_number} required />
+              <label htmlFor="image-hotel">
+                Select Hotel Image
+                <input type="file" id="image-hotel" name="image" onChange={uploadPicture} />
+              </label>
+              {
+              image.imagePreview && <img src={image.imagePreview} alt="preview" />
+              }
               <button type="submit" className="reserve_btn text_1">Add</button>
             </form>
             {/* ------------------------------------- */}

@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useGetBookingsQuery } from '../services/hotel';
+import BookingValue from './bookingValue';
 import Loader from './Loader';
 import '../assets/styles/booking.css';
 
 const Booking = () => {
-  const { data: bookings, error, isLoading } = useGetBookingsQuery();
+  const { data: bookings, error, isLoading } = useGetBookingsQuery({});
   const [navstatus, setNavstatus] = useState("mob_nav");
 
   const mobMenuAction = () => {
@@ -16,13 +17,10 @@ const Booking = () => {
       setNavstatus("mob_nav");
     }
   };
-  // eslint-disable-next-line arrow-body-style
-  const activeStyle = ({ isActive }) => {
-    return ({
+  const activeStyle = ({ isActive }) => ({
     // backgroundColor: isActive ? 'var(--color-accent)' : 'white',
-      color: isActive ? 'white' : '#2b2b2b',
-    });
-  };
+    color: isActive ? 'white' : '#2b2b2b',
+  });
 
   return (
     <div className="content_holder">
@@ -39,7 +37,7 @@ const Booking = () => {
           <thead>
             <tr className="header">
               <th className="header_feild">Hotel Name</th>
-              <th className="header_feild">Room Name</th>
+              <th className="header_feild">Room Type</th>
               <th className="header_feild">From date</th>
               <th className="header_feild">For days</th>
               <th className="header_feild">Total Amount</th>
@@ -48,21 +46,7 @@ const Booking = () => {
           </thead>
           <tbody>
             {
-            bookings?.map((booking) => (
-              <tr key={booking.id}>
-                <td className="data_feild">name</td>
-                <td className="data_feild">name</td>
-                <td className="data_feild">{booking.booking_date.substr(0, 10)}</td>
-                <td className="data_feild">{booking.days}</td>
-                <td className="data_feild">
-                  $
-                  {booking.amount}
-                </td>
-                <td>
-                  <button type="button" className="cancel_btn">Cancel</button>
-                </td>
-              </tr>
-            ))
+            bookings?.map((booking) => (<BookingValue key={booking.id} booking={booking} />))
             }
           </tbody>
         </table>
