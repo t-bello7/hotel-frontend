@@ -7,11 +7,10 @@ import defaultHotel from "../assets/images/default-hotel.jpg";
 import { usePutHotelMutation, useDeleteHotelMutation } from '../services/hotel';
 import "../assets/styles/hotelCard.css";
 import '../assets/styles/hotels.css';
-import { useClearHotelMutation, useUpdateHotelMutation } from '../services/hotel';
 
 const HotelCard = (props) => {
-  const [updateHotel, { isLoading, error }] = useUpdateHotelMutation();
-  const [clearHotel, { isLoading: hotelLoding, error: hotelError }] = useClearHotelMutation();
+  const [putHotel, { isLoading, error }] = usePutHotelMutation();
+  const [deleteHotelReq, { isLoading: deleteLoading }] = useDeleteHotelMutation();
   const { hotel } = props;
 
   const visibile = "reserve_btn text_1";
@@ -133,14 +132,9 @@ const HotelCard = (props) => {
           {hotelLoding && <Loader />}
           <div>
             <p>Would You Like to delete This Hotel</p>
-<<<<<<< HEAD
-            <button type="submit" className="reserve_btn text_1" onClick={() => setdeletePopup("popup_window")}>Cancel</button>
-            <button type="submit" className="reserve_btn text_1" onClick={handledeleteSubmit}>Delete</button>
-=======
             {deleteLoading && <Loader />}
             <button type="submit" className="reserve_btn text_1" onClick={() => setdeletePopup("popup_window")}>Cancel</button>
             <button type="submit" className="reserve_btn text_1" onClick={() => deleteHotelReq(hotel.id)}>Delete</button>
->>>>>>> 7d2e372 (- add redux delete action to hotels page)
           </div>
           {/* ------------------------------------- */}
           <ToastContainer />

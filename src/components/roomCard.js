@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-<<<<<<< HEAD
 import { useClearRoomMutation, usePostBookingMutation, useUpdateRoomMutation } from '../services/hotel';
-=======
 import { usePostBookingMutation, usePutRoomMutation } from '../services/hotel';
->>>>>>> 7d2e372 (- add redux delete action to hotels page)
+import { usePostBookingMutation, usePutRoomMutation } from '../services/hotel';
 import { selectUserToken } from '../features/auth/authSlice';
 import Loader from './Loader';
 import defaultHotel from "../assets/images/default-hotel.jpg";
@@ -33,6 +31,7 @@ const RoomCard = (props) => {
     bed_count: room.bed_count,
     price: room.price,
   });
+  // const [updateRoom] = usePutRoomMutation();
 
   const [bookingData, setBookingData] = useState({
     days: 0,
@@ -91,7 +90,6 @@ const RoomCard = (props) => {
       toast.error(bookingError);
     }
   };
-<<<<<<< HEAD
 
   const handleRoomUpdateSubmit = () => {
     try {
@@ -117,8 +115,6 @@ const RoomCard = (props) => {
     }
   };
 
-=======
->>>>>>> 7d2e372 (- add redux delete action to hotels page)
   return (
     <div className="room_card">
       <div className="room_image_holder">
