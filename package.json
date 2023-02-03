@@ -3,12 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "axios": "^1.2.4",
+    "json-loader": "^0.5.7",
+    "jwt-decode": "^3.1.2",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-append-head": "^1.0.16",
     "react-dom": "^18.2.0",
+    "react-paginate": "^8.1.4",
+    "react-redux": "^8.0.5",
+    "react-responsive-datepicker": "^1.0.6",
+    "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
+    "react-toastify": "^9.1.1",
+    "redux-thunk": "^2.4.2",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -34,5 +47,22 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "7.x",
+    "@babel/eslint-parser": "7.x",
+    "@babel/plugin-syntax-jsx": "7.x",
+    "@babel/preset-env": "7.x",
+    "@babel/preset-react": "7.x",
+    "eslint": "7.x",
+    "eslint-config-airbnb": "18.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "4.x",
+    "stylelint": "13.x",
+    "stylelint-config-standard": "21.x",
+    "stylelint-csstree-validator": "1.x",
+    "stylelint-scss": "3.x"
   }
 }

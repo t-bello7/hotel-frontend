@@ -1,38 +1,133 @@
-.App {
+:root {
+  --color-accent: #8fcf45;
+}
+
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #2b2b2b;
+  margin: 0;
+}
+
+.text_center {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app_holder {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.content_holder {
+  height: 100vh;
+  width: 100%;
+  padding: 2%;
+  overflow: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.hotel_holder {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.navigation {
+  width: 100%;
+  height: 100vh;
+  display: none;
+  padding: 40% 0 5% 0;
+  border-right: 1px solid rgb(192, 192, 192);
+}
+
+.logo {
+  font-weight: bold;
+}
+
+.nav_holder {
+  padding: 10px 0 10px 20%;
+}
+
+.navbar {
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.nav_link {
+  padding: 7px;
+  padding-left: 12px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  transition: all 0.2s ease;
+}
+
+.nav_link-btn {
+  border: none;
+}
+
+.social_link_holder {
+  display: flex;
+  gap: 15px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.social_link:hover {
+  color: var(--color-accent);
+  scale: 1.2;
+  transition: all 0.2s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.copyright_text {
+  font-size: 10px;
+  margin: 10px 0;
+}
+
+/* __________ scroller ________ */
+
+/* width */
+/* stylelint-disable-next-line no-descending-specificity */
+::-webkit-scrollbar {
+  width: 4px;
+  background-color: rgb(255, 255, 255);
+}
+
+/* Track */
+
+/* ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px transparent;
+} */
+
+/* Handle */
+/* stylelint-disable-next-line no-descending-specificity */
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #5f8a2e;
+}
+
+@media screen and (min-width: 550px) {
+  .hotel_holder {
+    grid-template-columns: 1fr 1fr;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media screen and (min-width: 700px) {
+  .navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .app_holder {
+    grid-template-columns: 1fr 5fr;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .hotel_holder {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }

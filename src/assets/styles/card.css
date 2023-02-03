@@ -1,0 +1,20 @@
+.holder {
+  padding: 45px 25px;
+  background-color: rgba(255, 255, 255, 0.212);
+  border: 1px solid rgb(255, 255, 255);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 10px 20px #000;
+  border-top-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.form_holder {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,41 +1,12 @@
 <a name="readme-top"></a>
-
-<!--
-HOW TO USE:
-This is an example of how you may give instructions on setting up your project locally.
-
-Modify this file to match your project and remove sections that don't apply.
-
-REQUIRED SECTIONS:
-- Table of Contents
-- About the Project
-  - Built With
-  - Live Demo
-- Getting Started
-- Authors
-- Future Features
-- Contributing
-- Show your support
-- Acknowledgements
-- License
-
-OPTIONAL SECTIONS:
-- FAQ
-
-After you're finished please remove all the comments and instructions!
--->
-
-<div align="center">
+<!-- <div align="center"> -->
   <!-- You are encouraged to replace this logo with your own! Otherwise you can also remove it. -->
-  <img src="murple_logo.png" alt="logo" width="140"  height="auto" />
-  <br/>
-
-  <h3><b>Microverse README Template</b></h3>
-
-</div>
+  <!-- <img src="murple_logo.png" alt="logo" width="140"  height="auto" /> -->
+  <!-- <br/> -->
+  <!-- <h3><b>Microverse README Template</b></h3> -->
+<!-- </div> -->
 
 <!-- TABLE OF CONTENTS -->
-
 # 📗 Table of Contents
 
 - [📖 About the Project](#about-project)
@@ -60,29 +31,27 @@ After you're finished please remove all the comments and instructions!
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [your_project_name] <a name="about-project"></a>
+# 📖 [Hotel Booking] <a name="about-project"></a>
 
-> Describe your project in 1 or 2 sentences.
-
-**[your_project__name]** is a...
+> Hotel Booking is a room rental application primarily serve people who requires a room, with No reservation costs, Great rates, Secure Booking, Best Price Guarantee.
+> It allows users to create an account, login, and book a room. It also allows users to view all available hotels, and view a specific hotles with room lists. It also allows users to view all bookings made by a specific user.
 
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>
 
-> Describe the tech stack and include only the relevant sections that apply to your project.
-
 <details>
   <summary>Client</summary>
   <ul>
     <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://redux.org/">Redux (RTK Query)</a></li>
   </ul>
 </details>
 
 <details>
   <summary>Server</summary>
   <ul>
-    <li><a href="https://expressjs.com/">Express.js</a></li>
+    <li><a href="https://rubyonrails.org/">Ruby on Rails</a></li>
   </ul>
 </details>
 
@@ -97,11 +66,9 @@ After you're finished please remove all the comments and instructions!
 
 ### Key Features <a name="key-features"></a>
 
-> Describe between 1-3 key features of the application.
-
-- **[key_feature_1]**
-- **[key_feature_2]**
-- **[key_feature_3]**
+- **It allows users to create an account.**
+- **It allows users to login.**
+- **It allows users to book a room.**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -111,7 +78,7 @@ After you're finished please remove all the comments and instructions!
 
 > Add a link to your deployed project.
 
-- [Live Demo Link](https://yourdeployedapplicationlink.com)
+- [Live Demo Link](https://hotel-frontend-rosy.vercel.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -127,76 +94,52 @@ To get a local copy up and running, follow these steps.
 
 In order to run this project you need:
 
-<!--
-Example command:
-
 ```sh
- gem install rails
+ node 
+ yarn
 ```
- -->
 
 ### Setup
 
 Clone this repository to your desired folder:
 
-<!--
-Example commands:
-
 ```sh
   cd my-folder
-  git clone git@github.com:myaccount/my-project.git
+  git clone https://github.com/t-bello7/hotel-frontend.git
 ```
---->
 
 ### Install
 
 Install this project with:
 
-<!--
-Example command:
-
 ```sh
-  cd my-project
-  gem install
+  cd hotel-frontend
+  yarn install
 ```
---->
 
 ### Usage
 
 To run the project, execute the following command:
 
-<!--
-Example command:
-
 ```sh
-  rails server
+  yarn start
 ```
---->
 
 ### Run tests
 
 To run tests, run the following command:
 
-<!--
-Example command:
-
 ```sh
-  bin/rails test test/models/article_test.rb
+  yarn test
 ```
---->
 
 ### Deployment
 
 You can deploy this project using:
 
-<!--
-Example:
-
 ```sh
-
+  git push main
 ```
- -->
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- AUTHORS -->
@@ -205,17 +148,29 @@ Example:
 
 > Mention all of the collaborators of this project.
 
-👤 **Author1**
+👤 **Bello Oluwatomisin (t-bello)**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- GitHub: [@t-bello7](https://github.com/t-bello7)
+- Twitter: [@__tbello](https://twitter.com/__tbello)
+- LinkedIn: [Bello Oluwatomisin](https://linkedin.com/in/tbello7)
 
-👤 **Author2**
+👤 **Mohammed Hussen (binhussen)**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- GitHub: [@binhussen](https://github.com/binhussen)
+- Twitter: [@binhussens](https://twitter.com/binhussens)
+- LinkedIn: [Linkedin](https://www.linkedin.com/in/binhussen/)
+
+👤 **Stephen Ezea (stephnna)**
+
+- GitHub: [@stephnna](https://github.com/stephnna)
+- Twitter: [@stephnna](https://twitter.com/stephnna)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/stephen-ezea/)
+
+👤 **Alan Luqman (alanluqman)**
+
+- GitHub: [@alanluqman](https://github.com/alanluqman)
+- LinkedIn: [Alan Luqman](https://linkedin.com/in/alan-luqman-61623b17a)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -225,9 +180,8 @@ Example:
 
 > Describe 1 - 3 features you will add to the project.
 
-- [ ] **[new_feature_1]**
-- [ ] **[new_feature_2]**
-- [ ] **[new_feature_3]**
+- [ ] **It will allow users to book a room.**
+- [ ] **It will allows users to give a view hotel and rooms.**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -255,9 +209,11 @@ If you like this project...
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-> Give credit to everyone who inspired your codebase.
-
-I would like to thank...
+I would like to thank Microverse for giving me the opportunity to work on this project.
+- LazyCoders
+- Coding Partners
+I would like to thank Marten Bjork for the image
+https://unsplash.com/photos/n_IKQDCyrG0?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
