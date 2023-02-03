@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
-import { useSignupMutation } from '../services/hotel';
+import { useSignupMutation, useLoginMutation } from '../services/hotel';
 import 'react-responsive-datepicker/dist/index.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { setCredentials } from '../features/auth/authSlice';
@@ -34,6 +34,8 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [register, { isLoading, error }] = useSignupMutation();
+  const [login] = useLoginMutation();
+
   useEffect(() => {
     validateEmail({ email, setEmailError });
     validateUsername({ username, setUsernameError });
@@ -71,13 +73,14 @@ const Register = () => {
     e.preventDefault();
     setSubmited(true);
     if (valid) {
-      const user = await register({
+      let user = await register({
         username,
         email,
         role,
         password,
         password_confirmation: cpassword,
       }).unwrap();
+      user = await login({ email, password }).unwrap();
       dispatch(setCredentials(user));
       toast.success('Login successful');
       navigate('/hotels');
