@@ -59,6 +59,7 @@
 .disable {
   background-color: #a8a8a8 !important;
   cursor: default !important;
+  pointer-events: none;
 }
 
 .popup_window {

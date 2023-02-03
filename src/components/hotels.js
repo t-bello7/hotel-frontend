@@ -44,12 +44,9 @@ const Hotels = () => {
     }
   };
 
-  // eslint-disable-next-line arrow-body-style
-  const activeStyle = ({ isActive }) => {
-    return ({
-      color: isActive ? 'white' : '#2b2b2b',
-    });
-  };
+  const activeStyle = ({ isActive }) => ({
+    color: isActive ? 'white' : '#2b2b2b',
+  });
 
   const display = () => {
     setPopup("popup_window display");

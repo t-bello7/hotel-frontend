@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import jwt from 'jwt-decode';
+import { NavLink, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import jwt from 'jwt-decode';
+import { selectUserToken } from '../features/auth/authSlice';
+import defaultHotel from "../assets/images/default-hotel.jpg";
 import { useGetHotelQuery, useGetRoomsQuery, usePostRoomMutation } from '../services/hotel';
 import RoomCard from './roomCard';
 import Loader from './Loader';
 import '../assets/styles/hotelShow.css';
-import { selectUserToken } from '../features/auth/authSlice';
 
 const HotelShow = () => {
   const token = useSelector(selectUserToken);
@@ -88,7 +89,7 @@ const HotelShow = () => {
         {error && <div> Error Loading Data </div>}
         {isLoading && <Loader />}
         <div className="image_holder">
-          <img src={hotel?.image_url} alt="hotel_image" className="banner_image" />
+          <img src={hotel?.image_url || defaultHotel} alt="hotel_image" className="banner_image" />
         </div>
         <div className="hotel_show_holder_header">
           <button type="button" className="reserve_btn text_1" onClick={display}>Add New Room</button>
@@ -191,7 +192,7 @@ const HotelShow = () => {
             </label>
             {
               image.imagePreview && <img src={image.imagePreview} alt="preview" />
-              }
+            }
             <button type="submit" className="reserve_btn text_1">Add</button>
             <ToastContainer />
           </form>

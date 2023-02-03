@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { useClearRoomMutation, usePostBookingMutation, useUpdateRoomMutation } from '../services/hotel';
-import { usePostBookingMutation, usePutRoomMutation } from '../services/hotel';
-import { usePostBookingMutation, usePutRoomMutation } from '../services/hotel';
+import {
+  useDeleteRoomMutation,
+  usePostBookingMutation,
+  usePutRoomMutation
+} from '../services/hotel';
 import { selectUserToken } from '../features/auth/authSlice';
 import Loader from './Loader';
 import defaultHotel from "../assets/images/default-hotel.jpg";
@@ -21,17 +23,20 @@ const RoomCard = (props) => {
   const [deletepopup, setdeletePopup] = useState("popup_window");
   const token = useSelector(selectUserToken);
   const [postBooking, { isLoading: bookingisLoading, bookingError }] = usePostBookingMutation();
-  const [updateRoom, { isLoading: roomisLoading, roomError }] = useUpdateRoomMutation();
-  const [clearRoom, { isLoading, error }] = useClearRoomMutation();
-
+  const [updateRoom, { isLoading: roomisLoading, roomError }] = usePutRoomMutation();
+  const [clearRoom, { isLoading, error }] = useDeleteRoomMutation();
+  const userId = jwt(token).user_id;
+  const [image, setImage] = useState({
+    imagePreview: "",
+    pictureAsFile: "",
+  });
   const [roomData, setRoomData] = useState({
     name: room.name,
     hotel_id: hotelId,
-    type: room.type,
+    room_type: room.room_type,
     bed_count: room.bed_count,
     price: room.price,
   });
-  // const [updateRoom] = usePutRoomMutation();
 
   const [bookingData, setBookingData] = useState({
     days: 0,
@@ -42,6 +47,12 @@ const RoomCard = (props) => {
   });
   const visibile = (room.reserved) ? "reserve_btn text_1 disable" : "reserve_btn text_1";
   const popupClass = display ? "popup_window display" : "popup_window";
+  const uploadPicture = (e) => {
+    setImage({
+      imagePreview: URL.createObjectURL(e.target.files[0]),
+      pictureAsFile: e.target.files[0]
+    });
+  };
 
   const reserving = () => {
     setDisplay(true);
@@ -79,7 +90,6 @@ const RoomCard = (props) => {
 
   const handleSubmit = () => {
     try {
-      const userId = jwt(token).user_id;
       postBooking({ userId, credentials: bookingData });
       updateRoom({
         hotelId, userId, roomId: room.id, credentials: { reserved: true }
@@ -91,9 +101,24 @@ const RoomCard = (props) => {
     }
   };
 
-  const handleRoomUpdateSubmit = () => {
+  const handleRoomUpdateSubmit = (event) => {
+    event.preventDefault();
     try {
-      updateRoom(room.id, roomData);
+      const getFormData = (object) => Object.keys(object).reduce((formData, key) => {
+        formData.append(key, object[key]);
+        return formData;
+      }, new FormData());
+      const credentials = getFormData(roomData);
+      if (image.pictureAsFile) {
+        credentials.append(
+          "image",
+          image.pictureAsFile
+        );
+      }
+      updateRoom({
+        hotelId, userId, roomId: room.id, credentials
+      });
+      setPopup("popup_window");
       toast.success("Succesfully Updated Room");
     } catch (err) {
       toast.error(roomError);
@@ -107,7 +132,11 @@ const RoomCard = (props) => {
   const handledeleteSubmit = (event) => {
     event.preventDefault();
     try {
-      clearRoom(room.id);
+      clearRoom({
+        roomId: room.id,
+        userId,
+        hotelId
+      });
       toast.success("Succefully Deleted room");
       setdeletePopup("popup_window");
     } catch (err) {
@@ -202,15 +231,21 @@ const RoomCard = (props) => {
           <form className="add_new_hotel_form" method="post" onSubmit={handleRoomUpdateSubmit}>
             {roomisLoading && <Loader />}
             <input type="text" name="name" className="form_feild" onChange={handleRoomFormChange} value={roomData?.name} placeholder="Room Name" required />
-            <input type="text" name="image" className="form_feild" onChange={handleRoomFormChange} value={roomData?.image} placeholder="Image" required />
-            <input type="number" name="bed_count" className="form_feild" onChange={handleRoomFormChange} value={roomData?.beds} placeholder="Beds" min={1} required />
-            <select name="type" id="type" className="form_field" onChange={handleRoomFormChange}>
+            <input type="number" name="bed_count" className="form_feild" onChange={handleRoomFormChange} value={roomData?.bed_count} placeholder="Beds" min={1} required />
+            <select name="room_type" id="room_type" className="form_field" onChange={handleRoomFormChange} value={roomData?.room_type || ""}>
               <option value="">-- Please choose a Room Type --</option>
               <option value="single-room"> Single Room </option>
               <option value="couple-room"> Couple Room </option>
               <option value="conference-hall"> Conference Hall </option>
             </select>
-            <input type="number" name="price" className="form_feild" onChange={handleRoomFormChange} placeholder="Price" min={1} required />
+            <input type="number" name="price" className="form_feild" onChange={handleRoomFormChange} value={roomData?.price} placeholder="Price" min={1} required />
+            <label htmlFor="image-hotel">
+              Select Room Image
+              <input type="file" id="image-hotel" name="image" onChange={uploadPicture} />
+            </label>
+            {
+              image.imagePreview && <img src={image.imagePreview} alt="preview" />
+            }
             <button type="submit" className="reserve_btn text_1">Update</button>
             <ToastContainer />
           </form>

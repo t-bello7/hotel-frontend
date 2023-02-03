@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
+import jwt from 'jwt-decode';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { selectUserToken } from '../features/auth/authSlice';
+import { usePutHotelMutation, useDeleteHotelMutation } from '../services/hotel';
 import Loader from './Loader';
 import defaultHotel from "../assets/images/default-hotel.jpg";
-import { usePutHotelMutation, useDeleteHotelMutation } from '../services/hotel';
 import "../assets/styles/hotelCard.css";
 import '../assets/styles/hotels.css';
 
 const HotelCard = (props) => {
-  const [putHotel, { isLoading, error }] = usePutHotelMutation();
+  const [updateHotel, { isLoading, error }] = usePutHotelMutation();
   const [deleteHotelReq, { isLoading: deleteLoading }] = useDeleteHotelMutation();
+  const token = useSelector(selectUserToken);
   const { hotel } = props;
-
+  const userId = jwt(token).user_id;
   const visibile = "reserve_btn text_1";
   const [popup, setPopup] = useState("popup_window");
   const [deletepopup, setdeletePopup] = useState("popup_window");
+  const [image, setImage] = useState({
+    imagePreview: "",
+    pictureAsFile: "",
+  });
 
   const [hotelData, setHotelData] = useState({
     name: hotel.name,
@@ -23,6 +31,13 @@ const HotelCard = (props) => {
     email: hotel.email,
     phone_number: hotel.phone_number
   });
+
+  const uploadPicture = (e) => {
+    setImage({
+      imagePreview: URL.createObjectURL(e.target.files[0]),
+      pictureAsFile: e.target.files[0]
+    });
+  };
 
   const editHotel = () => {
     setPopup("popup_window display");
@@ -42,22 +57,22 @@ const HotelCard = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      updateHotel(hotel.id, hotelData);
+      const getFormData = (object) => Object.keys(object).reduce((formData, key) => {
+        formData.append(key, object[key]);
+        return formData;
+      }, new FormData());
+      const credentials = getFormData(hotelData);
+      if (image.pictureAsFile) {
+        credentials.append(
+          "image",
+          image.pictureAsFile
+        );
+      }
+      updateHotel({ userId, hotelId: hotel.id, credentials });
       setPopup("popup_window");
       toast.success("Succefully Updated hotel");
     } catch (err) {
       toast.error(error);
-    }
-  };
-
-  const handledeleteSubmit = (event) => {
-    event.preventDefault();
-    try {
-      clearHotel(hotel.id);
-      toast.success("Succefully Deleted hotel");
-      setdeletePopup("popup_window");
-    } catch (err) {
-      toast.error(hotelError);
     }
   };
 
@@ -111,6 +126,13 @@ const HotelCard = (props) => {
             <input type="text" name="location" className="form_feild" placeholder="Location" onChange={handleHotelFormChange} value={hotelData?.location} required />
             <input type="email" name="email" className="form_feild" placeholder="Email" onChange={handleHotelFormChange} value={hotelData?.email} required />
             <input type="text" name="phone_number" placeholder="Phone Number" onChange={handleHotelFormChange} value={hotelData?.phone_number} required />
+            <label htmlFor="image-hotel">
+              Select Hotel Image
+              <input type="file" id="image-hotel" name="image" onChange={uploadPicture} />
+            </label>
+            {
+              image.imagePreview && <img src={image.imagePreview} alt="preview" />
+              }
             <button type="submit" className="reserve_btn text_1">Update</button>
           </form>
           {/* ------------------------------------- */}
@@ -129,7 +151,6 @@ const HotelCard = (props) => {
               <i className="fa fa-times white_color" />
             </button>
           </div>
-          {hotelLoding && <Loader />}
           <div>
             <p>Would You Like to delete This Hotel</p>
             {deleteLoading && <Loader />}
