@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import jwt from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
 import { useGetHotelQuery, useGetRoomsQuery, usePostRoomMutation } from '../services/hotel';
 import RoomCard from './roomCard';
 import Loader from './Loader';
 import '../assets/styles/hotelShow.css';
+import { selectUserToken } from '../features/auth/authSlice';
 
 const HotelShow = () => {
+  const token = useSelector(selectUserToken);
   const { hotelId } = useParams();
   const { data: hotel, error, isLoading } = useGetHotelQuery(hotelId);
   const { data: rooms, error: roomsError, isLoading: roomsIsLoading } = useGetRoomsQuery(hotelId);
@@ -14,12 +18,16 @@ const HotelShow = () => {
   const [roomData, setRoomData] = useState({
     name: '',
     hotel_id: hotelId,
-    type: '',
+    room_type: '',
     bed_count: 0,
     price: 0,
   });
   const [popup, setPopup] = useState("popup_window ");
   const [navstatus, setNavstatus] = useState("mob_nav");
+  const [image, setImage] = useState({
+    imagePreview: "",
+    pictureAsFile: "",
+  });
 
   const mobMenuAction = () => {
     if (navstatus === "mob_nav") setNavstatus("mob_nav mob_nav_opened");
@@ -32,13 +40,16 @@ const HotelShow = () => {
     setPopup("popup_window display");
   };
 
-  // eslint-disable-next-line arrow-body-style
-  const activeStyle = ({ isActive }) => {
-    return ({
-      // backgroundColor: isActive ? 'var(--color-accent)' : 'white',
-      color: isActive ? 'white' : '#2b2b2b',
+  const uploadPicture = (e) => {
+    setImage({
+      imagePreview: URL.createObjectURL(e.target.files[0]),
+      pictureAsFile: e.target.files[0]
     });
   };
+
+  const activeStyle = ({ isActive }) => ({
+    color: isActive ? 'white' : '#2b2b2b',
+  });
 
   const handleRoomFormChange = (event) => {
     setRoomData({
@@ -50,7 +61,21 @@ const HotelShow = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      postRoom(roomData);
+      const getFormData = (object) => Object.keys(object).reduce((formData, key) => {
+        formData.append(key, object[key]);
+        return formData;
+      }, new FormData());
+      const credentials = getFormData(roomData);
+
+      if (image.pictureAsFile) {
+        credentials.append(
+          "image",
+          image.pictureAsFile
+        );
+      }
+      const { user_id: userId } = jwt(token);
+
+      postRoom({ userId, hotelId, credentials });
       toast.success("Succesfully added Room");
     } catch (err) {
       toast.error(roomError);
@@ -63,7 +88,7 @@ const HotelShow = () => {
         {error && <div> Error Loading Data </div>}
         {isLoading && <Loader />}
         <div className="image_holder">
-          {/* <img src={hotel?.image} alt="hotel_image" className="banner_image" /> */}
+          <img src={hotel?.image_url} alt="hotel_image" className="banner_image" />
         </div>
         <div className="hotel_show_holder_header">
           <button type="button" className="reserve_btn text_1" onClick={display}>Add New Room</button>
@@ -74,11 +99,6 @@ const HotelShow = () => {
         <div className="mobile_hotel_info">
           <h1 className="mob_h_name">{hotel?.name}</h1>
           <div>
-            <p>
-              Size :
-              &nbsp;&nbsp;
-              {hotel?.size}
-            </p>
             <p>
               <i className="fa fa-phone green_color" aria-hidden="true" />
               &nbsp;&nbsp;
@@ -130,11 +150,6 @@ const HotelShow = () => {
         <div className="info_holder">
           <h1>{hotel?.name}</h1>
           <p>
-            Size :
-            &nbsp;&nbsp;
-            {hotel?.size}
-          </p>
-          <p>
             <i className="fa fa-phone green_color" aria-hidden="true" />
             &nbsp;&nbsp;
             {hotel?.phone_number}
@@ -162,15 +177,21 @@ const HotelShow = () => {
           <form className="add_new_hotel_form" method="post" onSubmit={handleSubmit}>
             {roomisLoading && <Loader />}
             <input type="text" name="name" className="form_feild" onChange={handleRoomFormChange} value={roomData?.name} placeholder="Room Name" required />
-            <input type="text" name="image" className="form_feild" onChange={handleRoomFormChange} value={roomData?.image} placeholder="Image" required />
             <input type="number" name="bed_count" className="form_feild" onChange={handleRoomFormChange} value={roomData?.beds} placeholder="Beds" min={1} required />
-            <select name="type" id="type" className="form_field" onChange={handleRoomFormChange}>
+            <select name="room_type" id="room_type" className="form_field" onChange={handleRoomFormChange}>
               <option value="">-- Please choose a Room Type --</option>
               <option value="single-room"> Single Room </option>
               <option value="couple-room"> Couple Room </option>
               <option value="conference-hall"> Conference Hall </option>
             </select>
             <input type="number" name="price" className="form_feild" onChange={handleRoomFormChange} placeholder="Price" min={1} required />
+            <label htmlFor="image-hotel">
+              Select Room Image
+              <input type="file" id="image-hotel" name="image" onChange={uploadPicture} />
+            </label>
+            {
+              image.imagePreview && <img src={image.imagePreview} alt="preview" />
+              }
             <button type="submit" className="reserve_btn text_1">Add</button>
             <ToastContainer />
           </form>

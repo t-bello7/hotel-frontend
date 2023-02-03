@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import "../assets/styles/hotelCard.css";
 import { ToastContainer, toast } from 'react-toastify';
 import Loader from './Loader';
-
+import defaultHotel from "../assets/images/default-hotel.jpg";
+import { usePutHotelMutation, useDeleteHotelMutation } from '../services/hotel';
+import "../assets/styles/hotelCard.css";
 import '../assets/styles/hotels.css';
 import { useClearHotelMutation, useUpdateHotelMutation } from '../services/hotel';
 
@@ -63,12 +64,11 @@ const HotelCard = (props) => {
 
   const link = `/hotels/${hotel.id}`;
   return (
-    // <NavLink to={link}>
     <div>
       <div className="card">
         <NavLink to={link}>
           <div className="card_img_holder">
-            <img className="card_img" src={hotel.image} alt="" />
+            <img className="card_img" src={hotel.image_url || defaultHotel} alt="" />
           </div>
         </NavLink>
         <div className="card_info">
@@ -87,11 +87,6 @@ const HotelCard = (props) => {
               <i className="fa fa-map-marker green_color" aria-hidden="true" />
               &nbsp;&nbsp;
               {hotel.location}
-            </h3>
-            <h3 className="card_size">
-              Size :
-              &nbsp;&nbsp;
-              {hotel.size}
             </h3>
           </div>
           <div>
@@ -138,8 +133,14 @@ const HotelCard = (props) => {
           {hotelLoding && <Loader />}
           <div>
             <p>Would You Like to delete This Hotel</p>
+<<<<<<< HEAD
             <button type="submit" className="reserve_btn text_1" onClick={() => setdeletePopup("popup_window")}>Cancel</button>
             <button type="submit" className="reserve_btn text_1" onClick={handledeleteSubmit}>Delete</button>
+=======
+            {deleteLoading && <Loader />}
+            <button type="submit" className="reserve_btn text_1" onClick={() => setdeletePopup("popup_window")}>Cancel</button>
+            <button type="submit" className="reserve_btn text_1" onClick={() => deleteHotelReq(hotel.id)}>Delete</button>
+>>>>>>> 7d2e372 (- add redux delete action to hotels page)
           </div>
           {/* ------------------------------------- */}
           <ToastContainer />

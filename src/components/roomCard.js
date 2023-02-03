@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import jwt from 'jwt-decode';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+<<<<<<< HEAD
 import { useClearRoomMutation, usePostBookingMutation, useUpdateRoomMutation } from '../services/hotel';
+=======
+import { usePostBookingMutation, usePutRoomMutation } from '../services/hotel';
+>>>>>>> 7d2e372 (- add redux delete action to hotels page)
 import { selectUserToken } from '../features/auth/authSlice';
 import Loader from './Loader';
+import defaultHotel from "../assets/images/default-hotel.jpg";
 import '../assets/styles/roomCard.css';
 
 const RoomCard = (props) => {
+  const navigate = useNavigate();
   const { room } = props;
   const { hotelId } = useParams();
   const [display, setDisplay] = useState(false);
@@ -34,10 +40,8 @@ const RoomCard = (props) => {
     amount: 0,
     hotel_id: hotelId,
     room_id: room.id,
-    user_id: jwt(token).user_id
   });
-
-  const visibile = (room.name) ? "reserve_btn text_1" : "reserve_btn text_1 disable";
+  const visibile = (room.reserved) ? "reserve_btn text_1 disable" : "reserve_btn text_1";
   const popupClass = display ? "popup_window display" : "popup_window";
 
   const reserving = () => {
@@ -76,12 +80,18 @@ const RoomCard = (props) => {
 
   const handleSubmit = () => {
     try {
-      postBooking(bookingData);
+      const userId = jwt(token).user_id;
+      postBooking({ userId, credentials: bookingData });
+      updateRoom({
+        hotelId, userId, roomId: room.id, credentials: { reserved: true }
+      });
       toast.success("Succesfully added Booking");
+      navigate('/bookings');
     } catch (err) {
       toast.error(bookingError);
     }
   };
+<<<<<<< HEAD
 
   const handleRoomUpdateSubmit = () => {
     try {
@@ -107,24 +117,27 @@ const RoomCard = (props) => {
     }
   };
 
+=======
+>>>>>>> 7d2e372 (- add redux delete action to hotels page)
   return (
     <div className="room_card">
       <div className="room_image_holder">
-        <img src={room.image} alt="room_image" className="room_image" />
+        <img src={room.image_url || defaultHotel} alt="room_image" className="room_image" />
       </div>
       <div className="room_info_holder">
         <div className="d_flex space_between">
-          <h2 className="text_1">{room.name}</h2>
+          <h2 className="text_1">{room.room_type}</h2>
           <h2 className="text_1">
             <i className="fa fa-money green_color" />
-            $
+            Price: $
             {room.price}
           </h2>
         </div>
         <div className="d_flex space_between">
           <h2 className="text_1">
             <i className="fa fa-bed green_color" aria-hidden="true" />
-            {room.beds}
+            Beds:
+            {room.bed_count}
           </h2>
           <button type="button" className={visibile} onClick={openPopup}>Edit Room</button>
           <button type="button" className={visibile} onClick={deleteHotel}>Delete Room</button>
@@ -138,18 +151,18 @@ const RoomCard = (props) => {
               </div>
               <h1>
                 <i className="fa fa-building green_color" />
-                {room.id}
+                {room.name}
               </h1>
               <hr />
               <h3 className="fixed_info">
                 <i className="fa fa-tag green_color" />
                 Room Type:
-                {room.name}
+                {room.room_type}
               </h3>
               <h3 className="fixed_info">
                 <i className="fa fa-bed green_color" />
                 Beds:
-                {room.beds}
+                {room.bed_count}
               </h3>
               <h3 className="fixed_info">
                 <i className="fa fa-money green_color" />
@@ -173,7 +186,7 @@ const RoomCard = (props) => {
                 {bookingData.amount}
                 <br />
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <button type="submit" className="reserve_btn text_1">Reserve</button>
+                  <button type="submit" className={visibile}>Reserve</button>
                 </div>
                 <ToastContainer />
               </form>
