@@ -32,26 +32,27 @@ export const hotelApi = createApi({
       }),
     }),
     postHotel: builder.mutation({
-      query: (credentials) => ({
-        url: 'hotels',
+      query: ({ userId, credentials }) => ({
+        url: `/users/${userId}/hotels`,
         method: 'POST',
         body: credentials
       }),
       invalidatesTags: ['Hotels']
     }),
-    updateHotel: builder.mutation({
-      query: (hotelId, credentials) => ({
-        url: `hotels/${hotelId}`,
+    putHotel: builder.mutation({
+      query: ({ userId, hotelId, credentials }) => ({
+        url: `/users/${userId}/hotels/${hotelId}`,
         method: 'PUT',
         body: credentials
       }),
       invalidatesTags: ['Hotels']
     }),
-    clearHotel: builder.mutation({
+    deleteHotel: builder.mutation({
       query: (hotelId) => ({
-        url: `hotels/${hotelId}`,
-        method: 'DELETE'
-      })
+        url: `users/1/hotels/${hotelId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Hotels']
     }),
     getHotels: builder.query({
       query: () => 'hotels',
@@ -62,62 +63,81 @@ export const hotelApi = createApi({
         url: `hotels/${hotelId}`,
       })
     }),
+    putRoom: builder.mutation({
+      query: ({
+        userId, hotelId, roomId, credentials
+      }) => ({
+        url: `/users/${userId}/hotels/${hotelId}/rooms/${roomId}`,
+        method: 'PUT',
+        body: credentials
+      }),
+      invalidatesTags: ['Rooms']
+    }),
+    deleteRoom: builder.mutation({
+      query: ({
+        userId, hotelId, roomId
+      }) => ({
+        url: `/users/${userId}/hotels/${hotelId}/rooms/${roomId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Rooms']
+    }),
     postRoom: builder.mutation({
-      query: (credentials) => ({
-        url: 'rooms',
+      query: ({ userId, hotelId, credentials }) => ({
+        url: `/users/${userId}/hotels/${hotelId}/rooms`,
         method: 'POST',
         body: credentials
       }),
       invalidatesTags: ['Rooms']
     }),
     getRooms: builder.query({
-      query: () => ({
-        url: 'rooms',
+      query: (hotelId) => ({
+        url: `/hotels/${hotelId}/rooms`,
       }),
       providesTags: ['Rooms']
     }),
-    updateRoom: builder.mutation({
-      query: (roomId, credentials) => ({
-        url: `rooms/${roomId}`,
-        method: 'PUT',
-        body: credentials
-      }),
-      invalidatesTags: ['Rooms']
-    }),
-    clearRoom: builder.mutation({
-      query: (roomId) => ({
-        url: `rooms/${roomId}`,
-        method: 'DELETE'
+    getRoom: builder.query({
+      query: ({ hotelId, roomId }) => ({
+        url: `/hotels/${hotelId}/rooms/${roomId}`,
       })
     }),
     postBooking: builder.mutation({
-      query: (credentials) => ({
-        url: 'bookings',
+      query: ({ userId, credentials }) => ({
+        url: `/users/${userId}/bookings`,
         method: 'POST',
         body: credentials
       }),
       invalidatesTags: ['Bookings']
     }),
     getBookings: builder.query({
-      query: () => ({
-        url: 'bookings'
+      query: (userId) => ({
+        url: `/users/${userId}/bookings`
       }),
       providesTags: ['Bookings']
-    })
+    }),
+    deleteBooking: builder.mutation({
+      query: ({ userId, bookingId }) => ({
+        url: `/users/${userId}/bookings/${bookingId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Bookings']
+    }),
   }),
 });
 export const {
   useSignupMutation,
   useLoginMutation,
-  usePostHotelMutation,
-  useUpdateHotelMutation,
-  useClearHotelMutation,
   useGetHotelQuery,
   useGetHotelsQuery,
-  usePostRoomMutation,
-  useUpdateRoomMutation,
-  useClearRoomMutation,
+  usePostHotelMutation,
+  usePutHotelMutation,
+  useDeleteHotelMutation,
+  useGetRoomQuery,
   useGetRoomsQuery,
-  usePostBookingMutation,
+  usePostRoomMutation,
+  usePutRoomMutation,
+  useDeleteRoomMutation,
   useGetBookingsQuery,
+  usePostBookingMutation,
+  useDeleteBookingMutation
 } = hotelApi;

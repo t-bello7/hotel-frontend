@@ -1,9 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
+import jwt from 'jwt-decode';
+import { selectUserToken } from '../features/auth/authSlice';
 import { clearAuthState } from '../hooks/localstorage';
 
 const Navigation = () => {
+  const token = useSelector(selectUserToken);
+  const { username } = jwt(token);
   const navigate = useNavigate();
   const activeStyle = ({ isActive }) => ({
     backgroundColor: isActive ? 'var(--color-accent)' : 'white',
@@ -18,6 +23,14 @@ const Navigation = () => {
   return (
     <div className="navigation">
       <div className="text_center">
+        <p>
+          {' '}
+          Welcome ,
+          <span>{username}</span>
+          {' '}
+          to
+          {' '}
+        </p>
         <a href="/" className="logo">Hotel Booking</a>
       </div>
       <div className="nav_holder">
